@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { supabase } from '../services/supabase';
-import PublicLayout from '../components/public/PublicLayout';
+import { supabase } from '../../services/supabase';
+import PublicLayout from '../../components/public/PublicLayout';
 import { PlayCircle, Clock, ArrowLeft, ExternalLink, BookOpen } from 'lucide-react';
 
 const ModulePage = () => {

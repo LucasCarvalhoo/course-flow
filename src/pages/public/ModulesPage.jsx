@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useModules } from '../hooks/useModules';
-import PublicLayout from '../components/public/PublicLayout';
-import ModuleCard from '../components/public/ModuleCard';
+import { useModules } from '../../hooks/useModules';
+import PublicLayout from '../../components/public/PublicLayout';
+import ModuleCard from '../../components/public/ModuleCard';
 import { Search, Filter } from 'lucide-react';
 
 const ModulesPage = () => {
