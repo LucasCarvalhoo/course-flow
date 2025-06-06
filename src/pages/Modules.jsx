@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../context/UserContext";
+// Remove auth dependencies for now
+// import { useAuth } from "../context/UserContext";
 import { useModules } from "../hooks/useModules";
 import { useNavigate, useLocation } from "react-router-dom";
 import SidebarSearch from "../components/SidebarSearch";
-import ProfileModal from "../components/ProfileModal";
+// Remove ProfileModal import for now
+// import ProfileModal from "../components/ProfileModal";
 
 const Modules = () => {
-  const { user, isAdmin, signOut } = useAuth();
+  // Remove auth dependencies
+  // const { user, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { modules, loading, error } = useModules();
@@ -14,7 +17,8 @@ const Modules = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [showSidebarContent, setShowSidebarContent] = useState(false);
   const [showMainContent, setShowMainContent] = useState(false);
-  const [showProfileModal, setShowProfileModal] = useState(false);
+  // Remove profile modal for now
+  // const [showProfileModal, setShowProfileModal] = useState(false);
 
   // Verifica se veio do login para aplicar animações
   const fromLogin = location.state?.fromLogin;
@@ -57,10 +61,11 @@ const Modules = () => {
     window.open(lesson.youtube_url, "_blank");
   };
 
-  const handleSignOut = async () => {
-    await signOut();
-    navigate("/login");
-  };
+  // Remove sign out functionality for now
+  // const handleSignOut = async () => {
+  //   await signOut();
+  //   navigate("/login");
+  // };
 
   // Ícones para diferentes tipos de módulos/aulas
   const getModuleIcon = (index) => {
@@ -248,12 +253,12 @@ const Modules = () => {
               </div>
             </div>
 
-            {/* Seção ACCOUNT */}
-            <div className="section-header mt-8">Conta</div>
+            {/* Seção ADMIN - Simplified */}
+            <div className="section-header mt-8">Admin</div>
             <div className="space-y-1">
               <div
                 className="flex items-center gap-3 p-3 text-[#cccccc] hover:text-white cursor-pointer transition-colors"
-                onClick={() => setShowProfileModal(true)}
+                onClick={() => navigate('/admin')}
               >
                 <svg
                   className="w-4 h-4 text-[#888888]"
@@ -265,29 +270,16 @@ const Modules = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
                   />
-                </svg>
-                <span className="text-sm">Perfil</span>
-              </div>
-              <div
-                className="flex items-center gap-3 p-3 text-[#cccccc] hover:text-white cursor-pointer transition-colors"
-                onClick={handleSignOut}
-              >
-                <svg
-                  className="w-4 h-4 text-[#888888]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                <span className="text-sm">Sair</span>
+                <span className="text-sm">Painel Admin</span>
               </div>
             </div>
           </div>
@@ -341,16 +333,14 @@ const Modules = () => {
                     >
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                     </svg>
-                    TEMPLATE
+                    CURSO PÚBLICO
                   </span>
                 </div>
                 <h1 className="text-4xl font-bold text-white mb-4">
-                  CourseOS for Framer
+                  Geração Tech 2.0
                 </h1>
                 <p className="text-white/80 text-lg">
-                  The Course Operating System is a Template that lets you host
-                  your online course directly in Framer and protect it with
-                  Outseta.
+                  Aprenda tecnologia gratuitamente com nossos cursos online.
                 </p>
               </div>
             </div>
@@ -360,11 +350,9 @@ const Modules = () => {
               {/* Seção do módulo */}
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-semibold text-white">Aula</h2>
+                  <h2 className="text-2xl font-semibold text-white">Aulas</h2>
                   <span className="text-[#666666] text-sm font-medium tracking-wider">
-                    {" "}
-                    Aula:
-                    {(selectedModule.lessons?.length || 0, 1)}
+                    {selectedModule.lessons?.length || 0} aulas
                   </span>
                 </div>
               </div>
@@ -394,7 +382,7 @@ const Modules = () => {
 
                           <div className="flex-1">
                             <h4 className="text-white font-medium mb-1 group-hover:text-blue-400 transition-colors">
-                              Aula {index + 1}
+                              {lesson.title}
                             </h4>
                             <div className="flex items-center gap-2 text-[#666666] text-sm">
                               <svg
@@ -406,12 +394,12 @@ const Modules = () => {
                                 <circle cx="12" cy="12" r="10" />
                                 <polyline points="12,6 12,12 16,14" />
                               </svg>
-                              6:30
+                              {lesson.duration_minutes || 6}:30
                             </div>
                           </div>
                         </div>
 
-                        <button className="start-button">Começar</button>
+                        <button className="start-button">Assistir</button>
                       </div>
                     </div>
                   ))}
@@ -430,17 +418,12 @@ const Modules = () => {
             <div className="text-center">
               <h2 className="text-white text-xl mb-2">Selecione um módulo</h2>
               <p className="text-[#666666]">
-                Escolha um módulo na barra lateral
+                Escolha um módulo na barra lateral para começar
               </p>
             </div>
           </div>
         )}
       </div>
-      {/* Profile Modal */}
-      <ProfileModal
-        isOpen={showProfileModal}
-        onClose={() => setShowProfileModal(false)}
-      />
     </div>
   );
 };
