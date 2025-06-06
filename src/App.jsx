@@ -10,6 +10,7 @@ import AdminProtectedRoute from './components/AdminProtectedRoute';
 import HomePage from './pages/public/HomePage';
 import ModulesPage from './pages/public/ModulesPage';
 import ModulePage from './pages/public/ModulePage';
+import LessonPage from './pages/LessonPage'; // Add lesson page
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -30,6 +31,9 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/modules" element={<ModulesPage />} />
               <Route path="/module/:id" element={<ModulePage />} />
+              
+              {/* LESSON ROUTES - New integrated lesson pages */}
+              <Route path="/lesson/:id" element={<LessonPage />} />
               
               {/* ADMIN ROUTES */}
               <Route path="/admin" element={<AdminLogin />} />

@@ -18,7 +18,7 @@ export const lessonService = {
     }
   },
 
-  // Buscar lição por ID (corrigido para usar a tabela diretamente)
+  // Buscar lição por ID (updated with better formatting)
   async getLessonById(id) {
     try {
       // Validar se é um UUID válido
@@ -43,7 +43,9 @@ export const lessonService = {
         throw error;
       }
       
-      return data;
+      // Format the lesson data properly
+      const formattedLesson = this.formatLessonData(data);
+      return formattedLesson;
     } catch (error) {
       console.error('Erro ao buscar lição por ID:', error);
       throw error;
@@ -67,11 +69,39 @@ export const lessonService = {
         throw error;
       }
       
-      return data;
+      return this.formatLessonData(data);
     } catch (error) {
       console.error('Erro ao buscar primeira lição:', error);
       throw error;
     }
+  },
+
+  // Format lesson data consistently
+  formatLessonData(lessonData) {
+    // Extract YouTube video ID if not already stored
+    let videoId = lessonData.youtube_video_id;
+    if (!videoId && lessonData.youtube_url) {
+      videoId = this.extractYouTubeId(lessonData.youtube_url);
+    }
+
+    return {
+      id: lessonData.id,
+      title: lessonData.title,
+      description: lessonData.description,
+      summary: lessonData.description, // Usar description como summary
+      videoUrl: lessonData.youtube_url,
+      videoId: videoId,
+      videoTitle: lessonData.title,
+      videoSubtitle: lessonData.module_title || lessonData.module?.title || 'Módulo',
+      videoDescription: lessonData.description,
+      duration: lessonData.duration_minutes,
+      moduleTitle: lessonData.module_title || lessonData.module?.title,
+      moduleId: lessonData.module_id || lessonData.module?.id,
+      orderPosition: lessonData.order_position,
+      isActive: lessonData.is_active,
+      createdAt: lessonData.created_at,
+      updatedAt: lessonData.updated_at
+    };
   },
 
   // Buscar lições por módulo
@@ -89,7 +119,7 @@ export const lessonService = {
         .order('order_position');
       
       if (error) throw error;
-      return data || [];
+      return (data || []).map(lesson => this.formatLessonData(lesson));
     } catch (error) {
       console.error('Erro ao buscar lições do módulo:', error);
       throw error;
@@ -139,24 +169,92 @@ export const lessonService = {
     return uuidRegex.test(uuid);
   },
 
-  // Extrair ID do YouTube da URL
+  // Extrair ID do YouTube da URL (improved)
   extractYouTubeId(url) {
     if (!url) return null;
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : null;
+    
+    // Handle different YouTube URL formats
+    const patterns = [
+      /(?:youtube\.com\/watch\?v=)([^&\n?#]+)/,
+      /(?:youtube\.com\/embed\/)([^&\n?#]+)/,
+      /(?:youtube\.com\/v\/)([^&\n?#]+)/,
+      /(?:youtu\.be\/)([^&\n?#]+)/,
+      /(?:youtube\.com\/watch\?.*v=)([^&\n?#]+)/
+    ];
+    
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match && match[1].length === 11) {
+        return match[1];
+      }
+    }
+    
+    return null;
   },
 
   // Gerar URL de embed do YouTube
-  generateYouTubeEmbedUrl(videoId) {
+  generateYouTubeEmbedUrl(videoId, autoplay = false) {
     if (!videoId) return null;
-    return `https://www.youtube.com/embed/${videoId}`;
+    const autoplayParam = autoplay ? '&autoplay=1' : '';
+    return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&enablejsapi=1${autoplayParam}`;
   },
 
-  // Marcar lição como completada (placeholder)
+  // Get YouTube thumbnail URL
+  getYouTubeThumbnail(videoId, quality = 'maxresdefault') {
+    if (!videoId) return null;
+    return `https://img.youtube.com/vi/${videoId}/${quality}.jpg`;
+  },
+
+  // Marcar lição como completada (enhanced)
   async markLessonComplete(lessonId, userId = null) {
-    console.log(`Lição ${lessonId} marcada como completa`);
-    return { success: true };
+    try {
+      console.log(`Lição ${lessonId} marcada como completa`);
+      
+      // Here you could implement actual completion tracking
+      // For example, storing in a user_lesson_progress table
+      
+      // Mock implementation for now
+      return { 
+        success: true, 
+        lessonId,
+        completedAt: new Date().toISOString()
+      };
+    } catch (error) {
+      console.error('Erro ao marcar lição como completa:', error);
+      throw error;
+    }
+  },
+
+  // Get lesson navigation (next/previous)
+  async getLessonNavigation(currentLessonId, moduleId) {
+    try {
+      if (!moduleId || !this.isValidUUID(moduleId)) {
+        return { previous: null, next: null };
+      }
+
+      const { data, error } = await supabase
+        .from('lessons')
+        .select('id, title, order_position')
+        .eq('module_id', moduleId)
+        .eq('is_active', true)
+        .order('order_position');
+      
+      if (error) throw error;
+      
+      const lessons = data || [];
+      const currentIndex = lessons.findIndex(lesson => lesson.id === currentLessonId);
+      
+      return {
+        previous: currentIndex > 0 ? lessons[currentIndex - 1] : null,
+        next: currentIndex < lessons.length - 1 ? lessons[currentIndex + 1] : null,
+        current: currentIndex >= 0 ? lessons[currentIndex] : null,
+        total: lessons.length,
+        position: currentIndex + 1
+      };
+    } catch (error) {
+      console.error('Erro ao buscar navegação da lição:', error);
+      return { previous: null, next: null };
+    }
   }
 };
 
@@ -165,6 +263,11 @@ export const adminLessonService = {
   // Criar nova lição
   async createLesson(lessonData) {
     try {
+      // Extract video ID if YouTube URL is provided
+      if (lessonData.youtube_url && !lessonData.youtube_video_id) {
+        lessonData.youtube_video_id = lessonService.extractYouTubeId(lessonData.youtube_url);
+      }
+
       const { data, error } = await supabase
         .from('lessons')
         .insert([lessonData])
@@ -172,7 +275,7 @@ export const adminLessonService = {
         .single();
       
       if (error) throw error;
-      return data;
+      return lessonService.formatLessonData(data);
     } catch (error) {
       console.error('Erro ao criar lição:', error);
       throw error;
@@ -182,6 +285,11 @@ export const adminLessonService = {
   // Atualizar lição
   async updateLesson(id, lessonData) {
     try {
+      // Extract video ID if YouTube URL is provided
+      if (lessonData.youtube_url && !lessonData.youtube_video_id) {
+        lessonData.youtube_video_id = lessonService.extractYouTubeId(lessonData.youtube_url);
+      }
+
       const { data, error } = await supabase
         .from('lessons')
         .update(lessonData)
@@ -190,7 +298,7 @@ export const adminLessonService = {
         .single();
       
       if (error) throw error;
-      return data;
+      return lessonService.formatLessonData(data);
     } catch (error) {
       console.error('Erro ao atualizar lição:', error);
       throw error;

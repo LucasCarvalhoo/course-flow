@@ -6,6 +6,8 @@ export const useLesson = (lessonId = null) => {
   const [lesson, setLesson] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [resources, setResources] = useState([]);
+  const [navigation, setNavigation] = useState({ previous: null, next: null });
 
   const fetchLesson = async () => {
     try {
@@ -13,7 +15,6 @@ export const useLesson = (lessonId = null) => {
       setError(null);
       
       let lessonData;
-      let resources = [];
       
       // Se não há lessonId, buscar a primeira lição
       if (!lessonId) {
@@ -27,32 +28,33 @@ export const useLesson = (lessonId = null) => {
       }
 
       // Buscar recursos da lição
+      let lessonResources = [];
       if (lessonData && lessonData.id) {
-        resources = await lessonService.getLessonResources(lessonData.id);
+        lessonResources = await lessonService.getLessonResources(lessonData.id);
+      }
+
+      // Buscar navegação (próxima/anterior)
+      let lessonNavigation = { previous: null, next: null };
+      if (lessonData && lessonData.moduleId) {
+        lessonNavigation = await lessonService.getLessonNavigation(
+          lessonData.id, 
+          lessonData.moduleId
+        );
       }
       
       // Formatar dados para o componente
       const formattedLesson = {
-        id: lessonData.id,
-        title: lessonData.title,
-        description: lessonData.description,
-        summary: lessonData.description, // Usar description como summary
-        videoUrl: lessonData.youtube_url,
-        videoId: lessonData.youtube_video_id,
-        videoTitle: lessonData.title,
-        videoSubtitle: lessonData.module_title || lessonData.module?.title || 'Módulo',
-        videoDescription: lessonData.description,
-        duration: lessonData.duration_minutes,
-        moduleTitle: lessonData.module_title || lessonData.module?.title,
-        moduleId: lessonData.module_id || lessonData.module?.id,
-        orderPosition: lessonData.order_position,
-        resources: resources.filter(r => r.type === 'link') || [],
-        downloads: resources.filter(r => r.type === 'download') || [],
+        ...lessonData,
+        // Separate resources by type
+        resources: lessonResources.filter(r => r.type === 'link') || [],
+        downloads: lessonResources.filter(r => r.type === 'download') || [],
         // FAQ pode ser implementado futuramente
         faq: []
       };
       
       setLesson(formattedLesson);
+      setResources(lessonResources);
+      setNavigation(lessonNavigation);
     } catch (err) {
       console.error('Erro ao carregar lição:', err);
       setError(err.message || 'Erro ao carregar lição');
@@ -68,12 +70,18 @@ export const useLesson = (lessonId = null) => {
   const completeLesson = async () => {
     try {
       if (lesson?.id) {
-        await lessonService.markLessonComplete(lesson.id);
-        console.log('Lição concluída:', lesson.id);
+        const result = await lessonService.markLessonComplete(lesson.id);
+        console.log('Lição concluída:', result);
+        
+        // You could update local state here to reflect completion
+        // setLesson(prev => ({ ...prev, completed: true }));
+        
+        return result;
       }
     } catch (err) {
       console.error('Erro ao completar lição:', err);
       setError(err.message || 'Erro ao completar lição');
+      throw err;
     }
   };
 
@@ -81,6 +89,35 @@ export const useLesson = (lessonId = null) => {
     if (lesson?.videoUrl) {
       console.log('Reproduzindo vídeo:', lesson.videoUrl);
       // Aqui você pode adicionar lógica adicional, como analytics
+      
+      // Track video play event
+      if (window.gtag) {
+        window.gtag('event', 'video_play', {
+          video_title: lesson.title,
+          video_url: lesson.videoUrl,
+          lesson_id: lesson.id
+        });
+      }
+    }
+  };
+
+  const navigateToLesson = (targetLessonId) => {
+    if (targetLessonId && targetLessonId !== lessonId) {
+      // This would typically be handled by React Router
+      // For now, we'll just trigger a reload with the new lesson ID
+      window.location.href = `/lesson/${targetLessonId}`;
+    }
+  };
+
+  const goToNextLesson = () => {
+    if (navigation.next) {
+      navigateToLesson(navigation.next.id);
+    }
+  };
+
+  const goToPreviousLesson = () => {
+    if (navigation.previous) {
+      navigateToLesson(navigation.previous.id);
     }
   };
 
@@ -88,12 +125,35 @@ export const useLesson = (lessonId = null) => {
     fetchLesson();
   };
 
+  // Enhanced return object with more functionality
   return {
+    // Core data
     lesson,
+    resources,
+    navigation,
+    
+    // State
     loading,
     error,
+    
+    // Actions
     completeLesson,
     playVideo,
-    refetch
+    goToNextLesson,
+    goToPreviousLesson,
+    refetch,
+    
+    // Helper computed values
+    hasVideo: !!(lesson?.videoId || lesson?.videoUrl),
+    hasResources: resources.length > 0,
+    hasNavigation: !!(navigation.previous || navigation.next),
+    isCompleted: false, // This would come from user progress data
+    
+    // Progress information
+    progress: navigation.position && navigation.total ? {
+      current: navigation.position,
+      total: navigation.total,
+      percentage: Math.round((navigation.position / navigation.total) * 100)
+    } : null
   };
 };

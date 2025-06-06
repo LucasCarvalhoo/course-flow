@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useSearch } from '../context/SearchProvider'; // Fixed import path
+import { useSearch } from '../context/SearchProvider';
 import { Search, X, PlayCircle, BookOpen, Clock, ExternalLink } from 'lucide-react';
 
 const SearchModal = ({ isOpen, onClose }) => {
@@ -157,36 +157,60 @@ const SearchModal = ({ isOpen, onClose }) => {
                       {searchResults
                         .filter(result => result.type === 'lesson')
                         .map(result => (
-                          <a
+                          <div
                             key={`lesson-${result.id}`}
-                            href={result.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={handleResultClick}
                             className="flex items-center gap-4 px-6 py-3 hover:bg-[#2a2a2a] transition-colors group"
                           >
                             <div className="w-10 h-10 bg-green-600/20 rounded-lg flex items-center justify-center">
                               <PlayCircle className="w-5 h-5 text-green-400" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="text-white font-medium group-hover:text-green-400 transition-colors">
-                                {result.title}
-                              </h4>
-                              <p className="text-[#666666] text-sm line-clamp-1">
-                                {result.description}
-                              </p>
-                              <div className="flex items-center gap-3 mt-1 text-xs text-[#888888]">
-                                {result.moduleTitle && <span>{result.moduleTitle}</span>}
-                                {result.duration && (
-                                  <span className="flex items-center gap-1">
-                                    <Clock className="w-3 h-3" />
-                                    {result.duration} min
-                                  </span>
-                                )}
-                              </div>
+                              <Link
+                                to={result.url}
+                                onClick={handleResultClick}
+                                className="block"
+                              >
+                                <h4 className="text-white font-medium group-hover:text-green-400 transition-colors">
+                                  {result.title}
+                                </h4>
+                                <p className="text-[#666666] text-sm line-clamp-1">
+                                  {result.description}
+                                </p>
+                                <div className="flex items-center gap-3 mt-1 text-xs text-[#888888]">
+                                  {result.moduleTitle && <span>{result.moduleTitle}</span>}
+                                  {result.duration && (
+                                    <span className="flex items-center gap-1">
+                                      <Clock className="w-3 h-3" />
+                                      {result.duration} min
+                                    </span>
+                                  )}
+                                </div>
+                              </Link>
                             </div>
-                            <ExternalLink className="w-4 h-4 text-[#666666] group-hover:text-green-400 transition-colors" />
-                          </a>
+                            
+                            {/* Action buttons */}
+                            <div className="flex items-center gap-2">
+                              <Link
+                                to={result.url}
+                                onClick={handleResultClick}
+                                className="text-[#666666] hover:text-green-400 transition-colors p-1"
+                                title="Ver aula"
+                              >
+                                <PlayCircle className="w-4 h-4" />
+                              </Link>
+                              {result.externalUrl && (
+                                <a
+                                  href={result.externalUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-[#666666] hover:text-blue-400 transition-colors p-1"
+                                  title="Abrir no YouTube"
+                                >
+                                  <ExternalLink className="w-4 h-4" />
+                                </a>
+                              )}
+                            </div>
+                          </div>
                         ))}
                     </div>
                   </div>

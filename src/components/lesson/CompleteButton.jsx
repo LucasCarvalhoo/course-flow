@@ -4,7 +4,7 @@ import Button from '../common/Button';
 
 const CompleteButton = ({ onComplete, disabled = false, text = "Complete Lesson" }) => {
   return (
-    <div className="px-6 pb-8">
+    <div className="w-full bg-white text-white py-3 px-4 rounded-lg font-medium hover:bg-[#404040] transition-colors text-center block">
       <Button 
         onClick={onComplete}
         disabled={disabled}

@@ -56,10 +56,10 @@ const ModulePage = () => {
     }
   };
 
+  // Updated: Navigate to lesson page instead of opening YouTube
   const handleLessonClick = (lesson) => {
-    if (lesson.youtube_url) {
-      window.open(lesson.youtube_url, '_blank');
-    }
+    // We'll navigate to the lesson page instead of opening YouTube directly
+    window.location.href = `/lesson/${lesson.id}`;
   };
 
   const totalDuration = module?.lessons?.reduce((acc, lesson) => {
@@ -167,7 +167,7 @@ const ModulePage = () => {
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-white mb-2">Aulas do Módulo</h2>
               <p className="text-[#cccccc]">
-                Clique em uma aula para começar a assistir no YouTube.
+                Clique em uma aula para começar a assistir.
               </p>
             </div>
 
@@ -204,8 +204,8 @@ const ModulePage = () => {
                           )}
                           {lesson.youtube_url && (
                             <div className="flex items-center gap-1">
-                              <ExternalLink className="w-3 h-3" />
-                              <span>YouTube</span>
+                              <PlayCircle className="w-3 h-3" />
+                              <span>Vídeo disponível</span>
                             </div>
                           )}
                         </div>

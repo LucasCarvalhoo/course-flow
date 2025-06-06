@@ -29,14 +29,15 @@ export const SearchProvider = ({ children }) => {
 
       if (modulesError) throw modulesError;
 
-      // Search lessons
+      // Search lessons with module info
       const { data: lessons, error: lessonsError } = await supabase
         .from('lessons')
         .select(`
           *,
           module:modules(title)
         `)
-        .or(`title.ilike.%${searchTerm}%, description.ilike.%${searchTerm}%`);
+        .or(`title.ilike.%${searchTerm}%, description.ilike.%${searchTerm}%`)
+        .eq('is_active', true);
 
       if (lessonsError) throw lessonsError;
 
@@ -57,7 +58,8 @@ export const SearchProvider = ({ children }) => {
           moduleTitle: lesson.module?.title,
           duration: lesson.duration_minutes,
           youtubeUrl: lesson.youtube_url,
-          url: lesson.youtube_url
+          // Updated: Link to lesson page instead of YouTube
+          url: `/lesson/${lesson.id}`
         }))
       ];
 

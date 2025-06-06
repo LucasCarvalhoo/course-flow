@@ -175,7 +175,7 @@ const Modules = () => {
           <div className="p-6 border-b border-[#333333]">
             <div className="flex items-center gap-3">
               <div className="flex flex-col items-center mb-2 w-42 h-auto [filter:drop-shadow(0_0_6px_rgba(255,255,255,0.2))]">
-                <img src="./img/logo-gt.png" alt="Logo Geração Tech" />
+                <img src="../../img/logo-gt.png" alt="Logo Geração Tech" />
               </div>
             </div>
           </div>
