@@ -75,7 +75,7 @@ const Sidebar = ({ modules = [], selectedModule, onModuleSelect }) => {
         <Link to="/" className="flex items-center gap-3 group">
           <div className="relative">
             <img 
-              src="/public/img/logo-gt.png" 
+              src="./img/logo-gt.png" 
               alt="Geração Tech" 
               className="h-8 w-auto transition-all duration-200 group-hover:scale-105 [filter:drop-shadow(0_0_6px_rgba(59,130,246,0.3))]"
             />

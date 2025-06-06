@@ -332,7 +332,7 @@ const HomePage = () => {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <img 
-                  src="/public/img/logo-gt.png" 
+                  src="./img/logo-gt.png" 
                   alt="Geração Tech" 
                   className="h-8 w-auto"
                 />

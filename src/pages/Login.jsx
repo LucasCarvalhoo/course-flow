@@ -54,7 +54,7 @@ const Login = () => {
 <div className="flex flex-col items-center mb-12">
   {/* Adicionado um filtro de sombra para destacar a logo em fundos escuros */}
   <img 
-    src="./public/img/logo-gt.png" // Verifique se o caminho para sua logo está correto
+    src="./img/logo-gt.png" // Verifique se o caminho para sua logo está correto
     alt="Logo Geração Tech" 
     className="w-64 h-auto [filter:drop-shadow(0_0_6px_rgba(255,255,255,0.2))]" // Ajuste a largura (w-48) e a sombra conforme necessário
   />
@@ -267,7 +267,7 @@ const Login = () => {
           <div className="relative">
             {/* Certifique-se de que o caminho para a imagem está correto */}
             <img 
-              src="./public/img/img-login.png" 
+              src="./img/img-login.png" 
               alt="Alunos Geração Tech"
               className="max-w-none h-screen object-cover object-bottom-right"
               style={{ 

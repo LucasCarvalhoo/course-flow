@@ -38,7 +38,7 @@ const PublicHeader = () => {
             <Link to="/" className="flex items-center space-x-3 group">
               <div className="relative">
                 <img 
-                  src="/public/img/logo-gt.png" 
+                  src="./img/logo-gt.png" 
                   alt="Geração Tech" 
                   className="h-8 w-auto transition-all duration-200 group-hover:scale-105"
                 />
