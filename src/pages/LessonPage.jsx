@@ -1,5 +1,9 @@
 // src/pages/LessonPage.jsx
+<<<<<<< HEAD
+import React from 'react';
+=======
 import React, { useState } from 'react';
+>>>>>>> main
 import Sidebar from '../components/layout/Sidebar';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
@@ -11,9 +15,14 @@ import FAQSection from '../components/lesson/FAQSection';
 import CompleteButton from '../components/lesson/CompleteButton';
 import { useLesson } from '../hooks/useLesson';
 
+<<<<<<< HEAD
+const LessonPage = ({ lessonId = 1 }) => {
+  const { lesson, loading, error, completeLesson, playVideo } = useLesson(lessonId);
+=======
 const LessonPage = ({ lessonId = null }) => {
   const [activeModuleId, setActiveModuleId] = useState(null);
   const { lesson, loading, error, completeLesson, playVideo, refetch } = useLesson(lessonId);
+>>>>>>> main
 
   const handleBack = () => {
     // Navegar de volta para a lista de módulos
@@ -25,6 +34,8 @@ const LessonPage = ({ lessonId = null }) => {
     // Redirecionar para a próxima lição ou mostrar feedback
   };
 
+<<<<<<< HEAD
+=======
   const handleModuleSelect = (moduleId) => {
     setActiveModuleId(moduleId);
     // Implementar navegação para primeira lição do módulo
@@ -35,6 +46,7 @@ const LessonPage = ({ lessonId = null }) => {
     refetch();
   };
 
+>>>>>>> main
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
@@ -51,8 +63,13 @@ const LessonPage = ({ lessonId = null }) => {
       <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-400 mb-4">Erro ao carregar a lição: {error}</p>
+<<<<<<< HEAD
+          <button 
+            onClick={() => window.location.reload()}
+=======
           <button
             onClick={handleRetry}
+>>>>>>> main
             className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors"
           >
             Tentar novamente
@@ -65,6 +82,9 @@ const LessonPage = ({ lessonId = null }) => {
   if (!lesson) {
     return (
       <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+<<<<<<< HEAD
+        <p className="text-gray-400">Lição não encontrada</p>
+=======
         <div className="text-center">
           <p className="text-gray-400 mb-4">Lição não encontrada</p>
           <button
@@ -74,11 +94,47 @@ const LessonPage = ({ lessonId = null }) => {
             Recarregar
           </button>
         </div>
+>>>>>>> main
       </div>
     );
   }
 
   return (
+<<<<<<< HEAD
+    <div className="min-h-screen bg-gray-900 text-white flex">
+      <Sidebar />
+      
+      <div className="flex-1 overflow-y-auto bg-gray-900">
+        <div className="w-full">
+          <Header 
+            title={lesson.title}
+            description={lesson.description}
+            onBack={handleBack}
+          />
+
+          <div className="max-w-7xl mx-auto">
+            <VideoPlayer 
+              title={lesson.videoTitle}
+              subtitle={lesson.videoSubtitle}
+              description={lesson.videoDescription}
+              videoUrl={lesson.videoUrl}
+              onPlay={playVideo}
+            />
+
+            <LessonSummary content={lesson.summary} />
+
+            <ResourcesList resources={lesson.resources} />
+
+            <DownloadsList downloads={lesson.downloads} />
+
+            <FAQSection faqItems={lesson.faq} />
+
+            <CompleteButton onComplete={handleComplete} />
+          </div>
+
+          <Footer />
+        </div>
+=======
     <div className="min-h-screen bg-[#161616] text-white flex">
       <Sidebar 
         onModuleSelect={handleModuleSelect}
@@ -111,9 +167,14 @@ const LessonPage = ({ lessonId = null }) => {
         <CompleteButton onComplete={handleComplete} />
 
         <Footer />
+>>>>>>> main
       </div>
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default LessonPage;
+=======
+export default LessonPage;
+>>>>>>> main
