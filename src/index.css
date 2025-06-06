@@ -10,11 +10,13 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
-  background-color: #1a1a1a;
-  color: #ffffff;
 }
 
-.app {
-  display: flex;
-  min-height: 100vh;
+/* Custom width for sidebar */
+.w-70 {
+  width: 280px;
+}
+
+.ml-70 {
+  margin-left: 280px;
 }
