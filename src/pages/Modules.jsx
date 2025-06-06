@@ -145,21 +145,16 @@ const Modules = () => {
           {/* Logo CourseOS */}
           <div className="p-6 border-b border-[#333333]">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-              </div>
-              <div>
-                <h1 className="text-white font-semibold">CourseOS</h1>
-                <p className="text-[#666666] text-xs">Framer Template</p>
+              
+              <div className="flex flex-col items-center mb-2 w-42 h-auto [filter:drop-shadow(0_0_6px_rgba(255,255,255,0.2))]">
+                <img src="./public/img/logo-gt.png"  alt="Logo Geração Tech" />
               </div>
             </div>
           </div>
 
           {/* Seção MODULAR */}
           <div className="p-4 flex-1 overflow-y-auto">
-            <div className="section-header">MODULAR</div>
+            <div className="section-header">Módulos</div>
             <div className="space-y-1">
               {modules.map((module, index) => (
                 <div
@@ -186,30 +181,30 @@ const Modules = () => {
                 <svg className="w-4 h-4 text-[#888888]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
-                <span className="text-sm">Community</span>
+                <span className="text-sm">Comunidade</span>
               </div>
               <div className="flex items-center gap-3 p-3 text-[#cccccc] hover:text-white cursor-pointer transition-colors">
                 <svg className="w-4 h-4 text-[#888888]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
-                <span className="text-sm">Coaching</span>
+                <span className="text-sm">Acompanhamento</span>
               </div>
               <div className="flex items-center gap-3 p-3 text-[#cccccc] hover:text-white cursor-pointer transition-colors">
                 <svg className="w-4 h-4 text-[#888888]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-                <span className="text-sm">Mentors</span>
+                <span className="text-sm">Mentores</span>
               </div>
             </div>
 
             {/* Seção ACCOUNT */}
-            <div className="section-header mt-8">ACCOUNT</div>
+            <div className="section-header mt-8">Conta</div>
             <div className="space-y-1">
               <div className="flex items-center gap-3 p-3 text-[#cccccc] hover:text-white cursor-pointer transition-colors">
                 <svg className="w-4 h-4 text-[#888888]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-                <span className="text-sm">Profile</span>
+                <span className="text-sm">Perfil</span>
               </div>
               <div 
                 className="flex items-center gap-3 p-3 text-[#cccccc] hover:text-white cursor-pointer transition-colors"
@@ -218,7 +213,7 @@ const Modules = () => {
                 <svg className="w-4 h-4 text-[#888888]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
-                <span className="text-sm">Logout</span>
+                <span className="text-sm">Sair</span>
               </div>
             </div>
           </div>
@@ -232,7 +227,7 @@ const Modules = () => {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              <span className="text-sm">Search</span>
+              <span className="text-sm">Pesquisar</span>
             </div>
           </div>
         </div>
@@ -268,9 +263,9 @@ const Modules = () => {
               {/* Seção do módulo */}
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-semibold text-white">Modular</h2>
-                  <span className="text-[#666666] text-sm font-medium tracking-wider">
-                    {selectedModule.lessons?.length || 0} LESSONS
+                  <h2 className="text-2xl font-semibold text-white">Aula</h2>
+                  <span className="text-[#666666] text-sm font-medium tracking-wider"> Aula:
+                    {selectedModule.lessons?.length || 0,1}
                   </span>
                 </div>
               </div>
@@ -302,7 +297,7 @@ const Modules = () => {
                           
                           <div className="flex-1">
                             <h4 className="text-white font-medium mb-1 group-hover:text-blue-400 transition-colors">
-                              Lesson {index + 1}
+                              Aula {index + 1}
                             </h4>
                             <div className="flex items-center gap-2 text-[#666666] text-sm">
                               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -315,7 +310,7 @@ const Modules = () => {
                         </div>
 
                         <button className="start-button">
-                          Start
+                          Começar
                         </button>
                       </div>
                     </div>
