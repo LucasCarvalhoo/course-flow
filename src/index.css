@@ -170,3 +170,103 @@
     display: none;
   }
 }
+
+/* Animações para o Modal de Perfil */
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modal-enter {
+  animation: modal-enter 0.3s ease-out forwards;
+}
+
+/* Transições suaves para hover */
+.profile-modal-button {
+  transition: all 0.2s ease;
+}
+
+/* Estilo para o input de arquivo customizado */
+.avatar-upload-label {
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.avatar-upload-label:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Scrollbar customizada para o modal */
+.profile-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.profile-modal-content::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.profile-modal-content::-webkit-scrollbar-thumb {
+  background: #4d4d4d;
+  border-radius: 4px;
+}
+
+.profile-modal-content::-webkit-scrollbar-thumb:hover {
+  background: #666666;
+}
+
+/* Animações para o Modal de Perfil */
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modal-enter {
+  animation: modal-enter 0.3s ease-out forwards;
+}
+
+/* Transições suaves para hover */
+.profile-modal-button {
+  transition: all 0.2s ease;
+}
+
+/* Estilo para o input de arquivo customizado */
+.avatar-upload-label {
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.avatar-upload-label:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Scrollbar customizada para o modal */
+.profile-modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.profile-modal-content::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.profile-modal-content::-webkit-scrollbar-thumb {
+  background: #4d4d4d;
+  border-radius: 4px;
+}
+
+.profile-modal-content::-webkit-scrollbar-thumb:hover {
+  background: #666666;
+}

@@ -260,21 +260,25 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Right Side - Image/Pattern */}
-      <div className="hidden lg:block flex-1 relative bg-gradient-to-br from-white to-slate-400">
-  {/* O fundo agora é branco sólido para um visual limpo e minimalista */}
-  <div className="absolute inset-0 flex items-center justify-center p-8">
-    <div className="text-center">
-      {/* Certifique-se de que o caminho para a imagem está correto */}
-      <img 
-        src="./public/img/img-login.png" 
-        alt="Personagem 3D flutuando em um céu com nuvens"
-        className="max-w-full h-auto"
-      />
-    </div>
-  </div>
-</div>
-
+      {/* Right Side - Image/Pattern - AJUSTADO */}
+      <div className="hidden lg:block flex-1 relative bg-gradient-to-br from-white to-slate-400 overflow-hidden">
+        {/* Container para posicionar a imagem no canto inferior direito */}
+        <div className="absolute inset-0 flex items-end justify-end">
+          <div className="relative">
+            {/* Certifique-se de que o caminho para a imagem está correto */}
+            <img 
+              src="./public/img/img-login.png" 
+              alt="Alunos Geração Tech"
+              className="max-w-none h-screen object-cover object-bottom-right"
+              style={{ 
+                maxHeight: '68vh',
+                width: 'auto',
+                objectPosition: 'bottom right'
+              }}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
