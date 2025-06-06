@@ -2,127 +2,317 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Configurações customizadas */
-:root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Estilos base para modo escuro */
-.dark {
-  color-scheme: dark;
-}
-
-/* Componentes customizados */
-@layer components {
-  .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+@layer base {
+  * {
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
   
-  .btn-secondary {
-    @apply bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
-  
-  .card {
-    @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700;
+
+  /* TEMA CLARO - Muito melhorado */
+  body.light-theme {
+    background-color: #fafafa;
+    color: #1f2937;
   }
-  
-  .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white;
+
+  /* === LOGIN - TEMA CLARO === */
+  .light-theme input {
+    background-color: #ffffff !important;
+    border-color: #d1d5db !important;
+    color: #1f2937 !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
   }
-  
-  .sidebar-item {
-    @apply flex items-center px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200;
+
+  .light-theme input::placeholder {
+    color: #9ca3af !important;
   }
-  
-  .sidebar-item.active {
-    @apply bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300;
+
+  .light-theme input:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+  }
+
+  .light-theme label {
+    color: #374151 !important;
+  }
+
+  .light-theme a {
+    color: #3b82f6 !important;
+  }
+
+  .light-theme .border-[#404040] {
+    border-color: #e5e7eb !important;
+  }
+
+  .light-theme span[class*="bg-[#1a1a1a]"] {
+    background-color: #fafafa !important;
+    color: #6b7280 !important;
+  }
+
+  /* Botões sociais tema claro */
+  .light-theme button[class*="bg-[#2a2a2a]"] {
+    background-color: #ffffff !important;
+    border-color: #d1d5db !important;
+    color: #374151 !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .light-theme button[class*="bg-[#2a2a2a]"]:hover {
+    background-color: #f9fafb !important;
+    border-color: #9ca3af !important;
   }
 }
 
-/* Scrollbar customizada */
-::-webkit-scrollbar {
-  width: 8px;
+/* === MODULES PAGE - TEMA CLARO === */
+
+/* Sidebar tema claro */
+.light-theme .sidebar {
+  background: #ffffff !important;
+  border-right: 1px solid #e5e7eb !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
 }
 
-::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-800;
+/* Logo e texto da sidebar */
+.light-theme .sidebar .text-white {
+  color: #1f2937 !important;
 }
 
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 dark:bg-gray-600 rounded-full;
+.light-theme .sidebar .text-[#cccccc] {
+  color: #4b5563 !important;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-gray-500 dark:bg-gray-500;
+.light-theme .sidebar .text-[#666666] {
+  color: #6b7280 !important;
 }
 
-/* Animações suaves */
-* {
-  transition: color 0.2s ease, background-color 0.2s ease;
+.light-theme .sidebar .text-[#737373] {
+  color: #6b7280 !important;
 }
 
-/* Links */
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+.light-theme .sidebar .text-[#888888] {
+  color: #9ca3af !important;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+/* Bordas da sidebar */
+.light-theme .sidebar .border-[#333333] {
+  border-color: #e5e7eb !important;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Items da sidebar tema claro */
+.light-theme .sidebar-item-active {
+  background: #f3f4f6 !important;
 }
 
-button {
+.light-theme .sidebar .hover\\:bg-\\[\\#2a2a2a\\]:hover {
+  background-color: #f9fafb !important;
+}
+
+.light-theme .sidebar .bg-\\[\\#333333\\] {
+  background-color: #f3f4f6 !important;
+}
+
+/* Conteúdo principal tema claro */
+.light-theme .flex-1.bg-\\[\\#1a1a1a\\] {
+  background-color: #fafafa !important;
+}
+
+/* Títulos e textos do conteúdo principal */
+.light-theme .text-white {
+  color: #1f2937 !important;
+}
+
+.light-theme .text-\\[\\#888888\\] {
+  color: #6b7280 !important;
+}
+
+.light-theme .text-\\[\\#666666\\] {
+  color: #9ca3af !important;
+}
+
+/* Cards das aulas tema claro */
+.light-theme .lesson-card {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.light-theme .lesson-card:hover {
+  background: #f9fafb !important;
+  border-color: #d1d5db !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Ícones das aulas tema claro */
+.light-theme .bg-\\[\\#404040\\] {
+  background-color: #f3f4f6 !important;
+}
+
+/* Botão Start tema claro */
+.light-theme .start-button {
+  background: #3b82f6 !important;
+  color: #ffffff !important;
+}
+
+.light-theme .start-button:hover {
+  background: #2563eb !important;
+}
+
+/* Section headers tema claro */
+.light-theme .section-header {
+  color: #6b7280 !important;
+}
+
+/* === GRADIENTES === */
+.header-gradient {
+  border-radius: 16px;
+}
+
+.gradient-introduction {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-foundation {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.gradient-creation {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.gradient-strategies {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+/* === CARDS DAS AULAS === */
+.lesson-card {
+  background: #2a2a2a;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.lesson-card:hover {
+  background: #333333;
+  border-color: #444444;
+}
+
+/* === SIDEBAR === */
+.sidebar {
+  background: #1f1f1f;
+  border-right: 1px solid #333333;
+}
+
+.sidebar-item-active {
+  background: #333333;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* === BOTÃO START === */
+.start-button {
+  background: #4a5568;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.start-button:hover {
+  background: #2d3748;
+}
+
+/* === THEME TOGGLE === */
+.theme-toggle {
+  position: relative;
+  width: 48px;
+  height: 24px;
+  background: #4b5563;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle.light {
+  background: #fbbf24;
+}
+
+.theme-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-thumb.light {
+  transform: translateX(24px);
+}
+
+/* === SECTION HEADER === */
+.section-header {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #666666;
+  margin-bottom: 12px;
+}
+
+/* === PESQUISA NA SIDEBAR === */
+.search-in-sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #1f1f1f;
+  z-index: 10;
+  padding: 20px;
+}
+
+.light-theme .search-in-sidebar {
+  background: #ffffff;
+}
+
+.search-input-sidebar {
+  background: #2a2a2a;
+  border: 1px solid #444444;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: white;
+  width: 100%;
+}
+
+.light-theme .search-input-sidebar {
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+  color: #1f2937;
+}
+
+.search-input-sidebar:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.search-input-sidebar::placeholder {
+  color: #6b7280;
 }
