@@ -43,10 +43,6 @@ const PublicHeader = () => {
                   className="h-8 w-auto transition-all duration-200 group-hover:scale-105"
                 />
               </div>
-              <div className="hidden sm:block">
-                <div className="text-white font-semibold text-sm">Geração Tech</div>
-                <div className="text-blue-400 text-xs font-medium">2.0</div>
-              </div>
             </Link>
 
             {/* Desktop Navigation */}
