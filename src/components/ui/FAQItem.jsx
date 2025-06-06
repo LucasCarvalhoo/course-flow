@@ -4,10 +4,10 @@ import { Plus, X } from 'lucide-react';
 
 const FAQItem = ({ faq, isExpanded, onToggle }) => {
   return (
-    <div className="bg-gray-800/50 rounded-lg overflow-hidden">
+    <div className="bg-[#1c1c1c] rounded-lg overflow-hidden">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-800/70 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-700/30 transition-colors"
       >
         <span className="text-gray-300">{faq.title}</span>
         {isExpanded ? (

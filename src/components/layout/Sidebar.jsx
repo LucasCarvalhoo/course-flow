@@ -26,7 +26,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-64 bg-gray-800/50 border-r border-gray-700/50 flex flex-col">
+    <div className="w-64 bg-[#1c1c1c] border-r border-gray-700/50 flex flex-col">
       {/* Logo */}
       <div className="p-6 border-b border-gray-700/50">
         <Logo />

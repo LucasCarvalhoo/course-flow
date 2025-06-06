@@ -4,7 +4,7 @@ import { ChevronLeft } from 'lucide-react';
 
 const Header = ({ title, description, onBack, backText = "Modular" }) => {
   return (
-    <div className="p-6 border-b border-gray-700/50">
+    <div className="p-6">
       <button 
         onClick={onBack}
         className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors mb-4"

@@ -21,7 +21,7 @@ const DownloadItem = ({ download, onClick }) => {
   return (
     <div
       onClick={handleClick}
-      className="flex items-center justify-between bg-gray-800/50 hover:bg-gray-800/70 rounded-lg px-4 py-3 cursor-pointer transition-colors group"
+      className="flex items-center justify-between bg-[#1c1c1c] hover:bg-gray-700/30 rounded-lg px-4 py-3 cursor-pointer transition-colors group"
     >
       <div className="flex items-center space-x-3">
         <FileDown className="w-4 h-4 text-gray-400" />

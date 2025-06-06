@@ -1,97 +1,91 @@
 // src/hooks/useLesson.js
 import { useState, useEffect } from 'react';
+import { lessonService } from '../services/lessonService';
 
-export const useLesson = (lessonId) => {
+export const useLesson = (lessonId = null) => {
   const [lesson, setLesson] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Mock data - substituir pela integração com Supabase
-  const mockLessonData = {
-    id: 1,
-    title: "Lesson 1",
-    description: "Welcome to this lesson on creating a website template. In this short lesson, we will explore the key steps involved in designing a website template.",
-    summary: "In this short lesson, we will explore the key steps involved in designing a website template. From defining the purpose and audience to planning the layout, styling, and coding, you'll learn how to create a visually appealing and functional foundation for your website. Let's dive in and unlock the world of website template creation!",
-    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-    videoTitle: "Input",
-    videoSubtitle: "A Complete...",
-    videoDescription: "Supports Loops, FormSpark, MailChimp, and GetWaitlist.",
-    resources: [
-      { id: 1, title: 'Link Name', type: 'link', url: 'https://example.com' },
-      { id: 2, title: 'Link Name', type: 'link', url: 'https://example.com' }
-    ],
-    downloads: [
-      { id: 1, title: 'File Name', type: 'file', url: '/downloads/file1.pdf' },
-      { id: 2, title: 'File Name', type: 'file', url: '/downloads/file2.pdf' }
-    ],
-    faq: [
-      {
-        id: 1,
-        title: 'Accordion Title',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.'
-      },
-      {
-        id: 2,
-        title: 'Accordion Title',
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.'
+  const fetchLesson = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      let lessonData;
+      let resources = [];
+      
+      // Se não há lessonId, buscar a primeira lição
+      if (!lessonId) {
+        lessonData = await lessonService.getFirstLesson();
+      } else {
+        // Verificar se é um UUID válido
+        if (!lessonService.isValidUUID(lessonId)) {
+          throw new Error('ID da lição inválido');
+        }
+        lessonData = await lessonService.getLessonById(lessonId);
       }
-    ]
+
+      // Buscar recursos da lição
+      if (lessonData && lessonData.id) {
+        resources = await lessonService.getLessonResources(lessonData.id);
+      }
+      
+      // Formatar dados para o componente
+      const formattedLesson = {
+        id: lessonData.id,
+        title: lessonData.title,
+        description: lessonData.description,
+        summary: lessonData.description, // Usar description como summary
+        videoUrl: lessonData.youtube_url,
+        videoId: lessonData.youtube_video_id,
+        videoTitle: lessonData.title,
+        videoSubtitle: lessonData.module_title || lessonData.module?.title || 'Módulo',
+        videoDescription: lessonData.description,
+        duration: lessonData.duration_minutes,
+        moduleTitle: lessonData.module_title || lessonData.module?.title,
+        moduleId: lessonData.module_id || lessonData.module?.id,
+        orderPosition: lessonData.order_position,
+        resources: resources.filter(r => r.type === 'link') || [],
+        downloads: resources.filter(r => r.type === 'download') || [],
+        // FAQ pode ser implementado futuramente
+        faq: []
+      };
+      
+      setLesson(formattedLesson);
+    } catch (err) {
+      console.error('Erro ao carregar lição:', err);
+      setError(err.message || 'Erro ao carregar lição');
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    const fetchLesson = async () => {
-      try {
-        setLoading(true);
-        // Simular delay de API
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        // Aqui você faria a chamada real para o Supabase
-        // const { data, error } = await supabase
-        //   .from('lessons')
-        //   .select(`
-        //     *,
-        //     module:modules(*),
-        //     resources(*),
-        //     faq(*)
-        //   `)
-        //   .eq('id', lessonId)
-        //   .single();
-        
-        setLesson(mockLessonData);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (lessonId) {
-      fetchLesson();
-    }
+    fetchLesson();
   }, [lessonId]);
 
   const completeLesson = async () => {
     try {
-      // Lógica para marcar lição como completa
-      console.log('Lesson completed:', lessonId);
-      
-      // Aqui você faria a chamada para o Supabase para salvar o progresso
-      // await supabase
-      //   .from('user_progress')
-      //   .upsert({
-      //     lesson_id: lessonId,
-      //     completed: true,
-      //     completed_at: new Date().toISOString()
-      //   });
-      
+      if (lesson?.id) {
+        await lessonService.markLessonComplete(lesson.id);
+        console.log('Lição concluída:', lesson.id);
+      }
     } catch (err) {
-      setError(err.message);
+      console.error('Erro ao completar lição:', err);
+      setError(err.message || 'Erro ao completar lição');
     }
   };
 
   const playVideo = () => {
-    // Lógica para reproduzir vídeo
-    console.log('Playing video:', lesson?.videoUrl);
+    if (lesson?.videoUrl) {
+      console.log('Reproduzindo vídeo:', lesson.videoUrl);
+      // Aqui você pode adicionar lógica adicional, como analytics
+    }
+  };
+
+  const refetch = () => {
+    fetchLesson();
   };
 
   return {
@@ -100,6 +94,6 @@ export const useLesson = (lessonId) => {
     error,
     completeLesson,
     playVideo,
-    refetch: () => fetchLesson()
+    refetch
   };
 };
