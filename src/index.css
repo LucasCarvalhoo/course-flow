@@ -9,6 +9,12 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
   
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-weight: 400;
@@ -17,165 +23,24 @@
     color: #ffffff;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
-
-  /* TEMA CLARO - Muito melhorado */
-  body.light-theme {
-    background-color: #fafafa;
-    color: #1f2937;
-  }
-
-  /* === LOGIN - TEMA CLARO === */
-  .light-theme input {
-    background-color: #ffffff !important;
-    border-color: #d1d5db !important;
-    color: #1f2937 !important;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
-  }
-
-  .light-theme input::placeholder {
-    color: #9ca3af !important;
-  }
-
-  .light-theme input:focus {
-    border-color: #3b82f6 !important;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
-  }
-
-  .light-theme label {
-    color: #374151 !important;
-  }
-
-  .light-theme a {
-    color: #3b82f6 !important;
-  }
-
-  .light-theme .border-[#404040] {
-    border-color: #e5e7eb !important;
-  }
-
-  .light-theme span[class*="bg-[#1a1a1a]"] {
-    background-color: #fafafa !important;
-    color: #6b7280 !important;
-  }
-
-  /* Botões sociais tema claro */
-  .light-theme button[class*="bg-[#2a2a2a]"] {
-    background-color: #ffffff !important;
-    border-color: #d1d5db !important;
-    color: #374151 !important;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
-  }
-
-  .light-theme button[class*="bg-[#2a2a2a]"]:hover {
-    background-color: #f9fafb !important;
-    border-color: #9ca3af !important;
-  }
-}
-
-/* === MODULES PAGE - TEMA CLARO === */
-
-/* Sidebar tema claro */
-.light-theme .sidebar {
-  background: #ffffff !important;
-  border-right: 1px solid #e5e7eb !important;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
-}
-
-/* Logo e texto da sidebar */
-.light-theme .sidebar .text-white {
-  color: #1f2937 !important;
-}
-
-.light-theme .sidebar .text-[#cccccc] {
-  color: #4b5563 !important;
-}
-
-.light-theme .sidebar .text-[#666666] {
-  color: #6b7280 !important;
-}
-
-.light-theme .sidebar .text-[#737373] {
-  color: #6b7280 !important;
-}
-
-.light-theme .sidebar .text-[#888888] {
-  color: #9ca3af !important;
-}
-
-/* Bordas da sidebar */
-.light-theme .sidebar .border-[#333333] {
-  border-color: #e5e7eb !important;
-}
-
-/* Items da sidebar tema claro */
-.light-theme .sidebar-item-active {
-  background: #f3f4f6 !important;
-}
-
-.light-theme .sidebar .hover\\:bg-\\[\\#2a2a2a\\]:hover {
-  background-color: #f9fafb !important;
-}
-
-.light-theme .sidebar .bg-\\[\\#333333\\] {
-  background-color: #f3f4f6 !important;
-}
-
-/* Conteúdo principal tema claro */
-.light-theme .flex-1.bg-\\[\\#1a1a1a\\] {
-  background-color: #fafafa !important;
-}
-
-/* Títulos e textos do conteúdo principal */
-.light-theme .text-white {
-  color: #1f2937 !important;
-}
-
-.light-theme .text-\\[\\#888888\\] {
-  color: #6b7280 !important;
-}
-
-.light-theme .text-\\[\\#666666\\] {
-  color: #9ca3af !important;
-}
-
-/* Cards das aulas tema claro */
-.light-theme .lesson-card {
-  background: #ffffff !important;
-  border: 1px solid #e5e7eb !important;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
-}
-
-.light-theme .lesson-card:hover {
-  background: #f9fafb !important;
-  border-color: #d1d5db !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-}
-
-/* Ícones das aulas tema claro */
-.light-theme .bg-\\[\\#404040\\] {
-  background-color: #f3f4f6 !important;
-}
-
-/* Botão Start tema claro */
-.light-theme .start-button {
-  background: #3b82f6 !important;
-  color: #ffffff !important;
-}
-
-.light-theme .start-button:hover {
-  background: #2563eb !important;
-}
-
-/* Section headers tema claro */
-.light-theme .section-header {
-  color: #6b7280 !important;
 }
 
 /* === GRADIENTES === */
 .header-gradient {
-  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 100%);
+  pointer-events: none;
 }
 
 .gradient-introduction {
@@ -205,12 +70,16 @@
 .lesson-card:hover {
   background: #333333;
   border-color: #444444;
+  transform: translateX(4px);
 }
 
 /* === SIDEBAR === */
 .sidebar {
   background: #1f1f1f;
   border-right: 1px solid #333333;
+  width: 16rem;
+  height: 100vh;
+  flex-shrink: 0;
 }
 
 .sidebar-item-active {
@@ -222,48 +91,17 @@
 .start-button {
   background: #4a5568;
   color: white;
-  padding: 8px 16px;
+  padding: 8px 20px;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 500;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .start-button:hover {
   background: #2d3748;
-}
-
-/* === THEME TOGGLE === */
-.theme-toggle {
-  position: relative;
-  width: 48px;
-  height: 24px;
-  background: #4b5563;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.theme-toggle.light {
-  background: #fbbf24;
-}
-
-.theme-toggle-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 20px;
-  height: 20px;
-  background: white;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.theme-toggle-thumb.light {
-  transform: translateX(24px);
+  transform: scale(1.05);
 }
 
 /* === SECTION HEADER === */
@@ -288,10 +126,6 @@
   padding: 20px;
 }
 
-.light-theme .search-in-sidebar {
-  background: #ffffff;
-}
-
 .search-input-sidebar {
   background: #2a2a2a;
   border: 1px solid #444444;
@@ -302,12 +136,6 @@
   width: 100%;
 }
 
-.light-theme .search-input-sidebar {
-  background: #f9fafb;
-  border: 1px solid #d1d5db;
-  color: #1f2937;
-}
-
 .search-input-sidebar:focus {
   outline: none;
   border-color: #3b82f6;
@@ -315,4 +143,79 @@
 
 .search-input-sidebar::placeholder {
   color: #6b7280;
+}
+
+/* === TRANSIÇÕES SUAVES === */
+.page-transition {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.page-entering {
+  opacity: 0;
+}
+
+.page-entered {
+  opacity: 1;
+}
+
+.page-exiting {
+  opacity: 0;
+}
+
+/* Animação suave da sidebar */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animação suave do conteúdo */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sidebar-animate {
+  animation: slideInFromLeft 0.5s ease-out;
+}
+
+.content-animate {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* === SCROLLBAR CUSTOMIZADA === */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444444;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555555;
+}
+
+/* === LAYOUT RESPONSIVO === */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
 }

@@ -1,8 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '../context/UserContext'
 import { useModules } from '../hooks/useModules'
 import { useNavigate } from 'react-router-dom'
-import ThemeToggle from '../components/ThemeToggle'
 import SidebarSearch from '../components/SidebarSearch'
 
 const Modules = () => {
@@ -11,6 +10,15 @@ const Modules = () => {
   const { modules, loading, error } = useModules()
   const [selectedModule, setSelectedModule] = useState(null)
   const [showSearch, setShowSearch] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(true)
+
+  useEffect(() => {
+    // Remove classe de animação após carregar
+    const timer = setTimeout(() => {
+      setIsAnimating(false)
+    }, 600)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Auto-selecionar primeiro módulo
   useState(() => {
@@ -85,7 +93,7 @@ const Modules = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#1a1a1a] flex items-center justify-center">
+      <div className="h-screen bg-[#1a1a1a] flex items-center justify-center">
         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
       </div>
     )
@@ -93,17 +101,17 @@ const Modules = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#1a1a1a] flex items-center justify-center">
+      <div className="h-screen bg-[#1a1a1a] flex items-center justify-center">
         <p className="text-red-400 text-sm">Erro: {error}</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a] flex">
+    <div className="h-screen bg-[#1a1a1a] flex page-transition page-entered">
       
-      {/* SIDEBAR - Com pesquisa integrada */}
-      <div className="sidebar w-64 flex flex-col relative">
+      {/* SIDEBAR */}
+      <div className={`sidebar flex flex-col relative ${isAnimating ? 'sidebar-animate' : ''}`}>
         
         {/* Pesquisa expandida na sidebar */}
         <SidebarSearch 
@@ -116,24 +124,21 @@ const Modules = () => {
           
           {/* Logo CourseOS */}
           <div className="p-6 border-b border-[#333333]">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                  <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                </div>
-                <div>
-                  <h1 className="text-white font-semibold">CourseOS</h1>
-                  <p className="text-[#666666] text-xs">Framer Template</p>
-                </div>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
               </div>
-              <ThemeToggle />
+              <div>
+                <h1 className="text-white font-semibold">CourseOS</h1>
+                <p className="text-[#666666] text-xs">Framer Template</p>
+              </div>
             </div>
           </div>
 
           {/* Seção MODULAR */}
-          <div className="p-4 flex-1">
+          <div className="p-4 flex-1 overflow-y-auto">
             <div className="section-header">MODULAR</div>
             <div className="space-y-1">
               {modules.map((module, index) => (
@@ -214,92 +219,97 @@ const Modules = () => {
       </div>
 
       {/* CONTEÚDO PRINCIPAL */}
-      <div className="flex-1 bg-[#1a1a1a]">
+      <div className={`flex-1 bg-[#1a1a1a] overflow-y-auto ${isAnimating ? 'content-animate' : ''}`}>
         
         {selectedModule ? (
-          <div className="p-8">
-            {/* Header com gradiente específico para cada módulo */}
-            <div className={`header-gradient ${getModuleGradient(selectedModule.title)} p-8 mb-8 text-center`}>
-              <div className="mb-2">
-                <span className="inline-flex items-center gap-2 text-white/80 text-sm font-medium">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                  TEMPLATE
-                </span>
-              </div>
-              <h1 className="text-4xl font-bold text-white mb-4">
-                CourseOS for Framer
-              </h1>
-              <p className="text-white/80 text-lg max-w-2xl mx-auto">
-                The Course Operating System is a Template that lets you host your online course directly in Framer and protect it with Outseta.
-              </p>
-            </div>
-
-            {/* Seção do módulo */}
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-semibold text-white">Modular</h2>
-                <span className="text-[#666666] text-sm font-medium tracking-wider">
-                  {selectedModule.lessons?.length || 0} LESSONS
-                </span>
+          <div className="h-full">
+            {/* Header com gradiente */}
+            <div className={`header-gradient ${getModuleGradient(selectedModule.title)} p-12 text-center`}>
+              <div className="max-w-4xl mx-auto">
+                <div className="mb-2">
+                  <span className="inline-flex items-center gap-2 text-white/80 text-sm font-medium">
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    TEMPLATE
+                  </span>
+                </div>
+                <h1 className="text-4xl font-bold text-white mb-4">
+                  CourseOS for Framer
+                </h1>
+                <p className="text-white/80 text-lg">
+                  The Course Operating System is a Template that lets you host your online course directly in Framer and protect it with Outseta.
+                </p>
               </div>
             </div>
 
-            {/* Título e descrição do módulo selecionado */}
-            <div className="mb-6">
-              <h3 className="text-xl font-semibold text-white mb-2">
-                {selectedModule.title}
-              </h3>
-              <p className="text-[#888888]">
-                {selectedModule.description}
-              </p>
-            </div>
+            {/* Container de conteúdo */}
+            <div className="px-8 py-8">
+              {/* Seção do módulo */}
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-2xl font-semibold text-white">Modular</h2>
+                  <span className="text-[#666666] text-sm font-medium tracking-wider">
+                    {selectedModule.lessons?.length || 0} LESSONS
+                  </span>
+                </div>
+              </div>
 
-            {/* Lista de aulas */}
-            {selectedModule.lessons && selectedModule.lessons.length > 0 ? (
-              <div className="space-y-3">
-                {selectedModule.lessons.map((lesson, index) => (
-                  <div
-                    key={lesson.id}
-                    className="lesson-card p-6 cursor-pointer group"
-                    onClick={() => handleLessonClick(lesson)}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4 flex-1">
-                        <div className="w-10 h-10 bg-[#404040] rounded-lg flex items-center justify-center text-[#888888]">
-                          {getLessonIcon(index)}
-                        </div>
-                        
-                        <div className="flex-1">
-                          <h4 className="text-white font-medium mb-1 group-hover:text-blue-400 transition-colors">
-                            Lesson {index + 1}
-                          </h4>
-                          <div className="flex items-center gap-2 text-[#666666] text-sm">
-                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <circle cx="12" cy="12" r="10"/>
-                              <polyline points="12,6 12,12 16,14"/>
-                            </svg>
-                            6:30
+              {/* Título e descrição do módulo selecionado */}
+              <div className="mb-8">
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  {selectedModule.title}
+                </h3>
+                <p className="text-[#888888]">
+                  {selectedModule.description}
+                </p>
+              </div>
+
+              {/* Lista de aulas */}
+              {selectedModule.lessons && selectedModule.lessons.length > 0 ? (
+                <div className="space-y-3">
+                  {selectedModule.lessons.map((lesson, index) => (
+                    <div
+                      key={lesson.id}
+                      className="lesson-card p-6 cursor-pointer group"
+                      onClick={() => handleLessonClick(lesson)}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4 flex-1">
+                          <div className="w-10 h-10 bg-[#404040] rounded-lg flex items-center justify-center text-[#888888]">
+                            {getLessonIcon(index)}
+                          </div>
+                          
+                          <div className="flex-1">
+                            <h4 className="text-white font-medium mb-1 group-hover:text-blue-400 transition-colors">
+                              Lesson {index + 1}
+                            </h4>
+                            <div className="flex items-center gap-2 text-[#666666] text-sm">
+                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12,6 12,12 16,14"/>
+                              </svg>
+                              6:30
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <button className="start-button">
-                        Start
-                      </button>
+                        <button className="start-button">
+                          Start
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-[#666666]">Nenhuma aula cadastrada ainda</p>
-              </div>
-            )}
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-[#666666]">Nenhuma aula cadastrada ainda</p>
+                </div>
+              )}
+            </div>
           </div>
         ) : (
-          <div className="flex items-center justify-center min-h-screen">
+          <div className="flex items-center justify-center h-full">
             <div className="text-center">
               <h2 className="text-white text-xl mb-2">Selecione um módulo</h2>
               <p className="text-[#666666]">Escolha um módulo na barra lateral</p>
