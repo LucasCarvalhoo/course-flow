@@ -15,14 +15,15 @@ export const UserProvider = ({ children }) => {
         const { data: { user } } = await supabase.auth.getUser()
         if (user) {
           setUser(user)
-          // Buscar o role do usuário
+          // Buscar o role do usuário na tabela admin
           const { data: userData } = await supabase
-            .from('users')
-            .select('role')
-            .eq('id', user.id)
+            .from('admin')
+            .select('name')
+            .eq('email', user.email)
             .single()
           
-          setRole(userData?.role || 'user')
+          // Se encontrou na tabela admin, é admin
+          setRole(userData ? 'admin' : 'user')
         }
       } catch (error) {
         console.error('Erro ao buscar usuário:', error)
@@ -39,12 +40,12 @@ export const UserProvider = ({ children }) => {
         if (session?.user) {
           setUser(session.user)
           const { data: userData } = await supabase
-            .from('users')
-            .select('role')
-            .eq('id', session.user.id)
+            .from('admin')
+            .select('name')
+            .eq('email', session.user.email)
             .single()
           
-          setRole(userData?.role || 'user')
+          setRole(userData ? 'admin' : 'user')
         } else {
           setUser(null)
           setRole(null)
