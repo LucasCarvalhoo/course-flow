@@ -3,7 +3,18 @@ import { Link } from 'react-router-dom';
 import { useModules } from '../../hooks/useModules';
 import PublicLayout from '../../components/public/PublicLayout';
 import ModuleCard from '../../components/public/ModuleCard';
-import { PlayCircle, BookOpen, Users, ArrowRight } from 'lucide-react';
+import { 
+  PlayCircle, 
+  BookOpen, 
+  Users, 
+  ArrowRight, 
+  Star, 
+  Award, 
+  Zap, 
+  Globe,
+  CheckCircle,
+  TrendingUp
+} from 'lucide-react';
 
 const HomePage = () => {
   const { modules, loading } = useModules();
@@ -11,82 +22,198 @@ const HomePage = () => {
   const features = [
     {
       icon: <PlayCircle className="w-8 h-8" />,
-      title: "Vídeos Gratuitos",
-      description: "Aprenda com aulas em vídeo de alta qualidade, totalmente gratuitas."
+      title: "Vídeos de Alta Qualidade",
+      description: "Aprenda com aulas profissionalmente produzidas, totalmente gratuitas e atualizadas.",
+      color: "text-blue-400",
+      bgColor: "bg-blue-500/10"
     },
     {
       icon: <BookOpen className="w-8 h-8" />,
-      title: "Conteúdo Estruturado",
-      description: "Cursos organizados em módulos progressivos para melhor aprendizado."
+      title: "Currículo Estruturado",
+      description: "Módulos organizados progressivamente para garantir o melhor aprendizado.",
+      color: "text-green-400",
+      bgColor: "bg-green-500/10"
     },
     {
       icon: <Users className="w-8 h-8" />,
       title: "Comunidade Ativa",
-      description: "Conecte-se com outros estudantes e compartilhe conhecimentos."
+      description: "Conecte-se com milhares de estudantes e compartilhe conhecimentos.",
+      color: "text-purple-400",
+      bgColor: "bg-purple-500/10"
+    },
+    {
+      icon: <Award className="w-8 h-8" />,
+      title: "Certificados",
+      description: "Receba certificados de conclusão reconhecidos pelo mercado.",
+      color: "text-yellow-400",
+      bgColor: "bg-yellow-500/10"
     }
+  ];
+
+  const stats = [
+    { label: "Estudantes", value: "10K+", icon: Users },
+    { label: "Horas de Conteúdo", value: "100+", icon: PlayCircle },
+    { label: "Módulos", value: "20+", icon: BookOpen },
+    { label: "Taxa de Conclusão", value: "85%", icon: TrendingUp }
   ];
 
   return (
     <PublicLayout showSidebar={false}>
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-600 to-purple-800"></div>
-        <div className="absolute inset-0 bg-black/40"></div>
+      <section className="relative overflow-hidden min-h-screen flex items-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-cyan-600/10"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.15),transparent_50%)]"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,rgba(147,51,234,0.15),transparent_50%)]"></div>
+        </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Geração Tech 2.0
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
-              Aprenda tecnologia gratuitamente com nossos cursos online. 
-              Comece sua jornada na programação hoje mesmo!
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/modules"
-                className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-lg"
-              >
-                <PlayCircle className="w-5 h-5" />
-                Começar Agora
-              </Link>
-              <a
-                href="#modules"
-                className="inline-flex items-center gap-2 border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-black transition-colors text-lg"
-              >
-                Ver Cursos
-                <ArrowRight className="w-5 h-5" />
-              </a>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Content */}
+            <div className="space-y-8">
+              <div className="space-y-6">
+                <div className="flex items-center gap-2 text-blue-400">
+                  <Star className="w-5 h-5" />
+                  <span className="text-sm font-semibold tracking-wide uppercase">
+                    Educação Gratuita de Qualidade
+                  </span>
+                </div>
+                
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
+                  Transforme sua
+                  <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                    carreira em tech
+                  </span>
+                </h1>
+                
+                <p className="text-xl md:text-2xl text-gray-300 leading-relaxed max-w-xl">
+                  Aprenda as tecnologias mais demandadas do mercado com nossos cursos gratuitos. 
+                  Do zero ao profissional, no seu próprio ritmo.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  to="/modules"
+                  className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  <PlayCircle className="w-5 h-5" />
+                  Começar Agora
+                </Link>
+                <a
+                  href="#features"
+                  className="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 backdrop-blur-sm border border-white/10"
+                >
+                  Saiba Mais
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+              </div>
+
+              {/* Quick Stats */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8">
+                {stats.map((stat, index) => {
+                  const Icon = stat.icon;
+                  return (
+                    <div key={index} className="text-center space-y-2">
+                      <div className="flex justify-center">
+                        <Icon className="w-6 h-6 text-blue-400" />
+                      </div>
+                      <div className="text-2xl font-bold text-white">{stat.value}</div>
+                      <div className="text-sm text-gray-400">{stat.label}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Hero Visual */}
+            <div className="relative hidden lg:block">
+              <div className="relative">
+                {/* Main Visual */}
+                <div className="w-full max-w-lg mx-auto">
+                  <div className="relative">
+                    {/* Background glow */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-2xl blur-3xl"></div>
+                    
+                    {/* Main card */}
+                    <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 space-y-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+                          <PlayCircle className="w-6 h-6 text-white" />
+                        </div>
+                        <div>
+                          <div className="text-white font-semibold">Aula Atual</div>
+                          <div className="text-gray-400 text-sm">JavaScript Fundamentals</div>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <div className="w-full bg-gray-800/50 rounded-full h-2 overflow-hidden">
+                          <div className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full w-3/4 relative">
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
+                          </div>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-400">12 min assistidos</span>
+                          <span className="text-white">16 min total</span>
+                        </div>
+                      </div>
+                      
+                      {/* Mini lesson list */}
+                      <div className="space-y-2">
+                        {[
+                          { title: "Variáveis e Tipos", completed: true },
+                          { title: "Funções", completed: true },
+                          { title: "Arrays e Objetos", completed: false },
+                          { title: "DOM Manipulation", completed: false }
+                        ].map((lesson, idx) => (
+                          <div key={idx} className="flex items-center gap-3 p-2 rounded-lg bg-black/20">
+                            <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
+                              lesson.completed ? 'bg-green-500' : 'bg-gray-600'
+                            }`}>
+                              {lesson.completed && <CheckCircle className="w-3 h-3 text-white" />}
+                            </div>
+                            <span className={`text-sm ${lesson.completed ? 'text-white' : 'text-gray-400'}`}>
+                              {lesson.title}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-[#1a1a1a]">
+      <section id="features" className="py-24 bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Por que escolher nossos cursos?
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Por que escolher a Geração Tech?
             </h2>
-            <p className="text-xl text-[#cccccc] max-w-2xl mx-auto">
-              Oferecemos uma experiência de aprendizado completa e acessível para todos.
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Oferecemos uma experiência de aprendizado completa, moderna e acessível para todos os níveis.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-[#2a2a2a] rounded-xl p-8 text-center hover:bg-[#333333] transition-colors"
+                className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 text-center space-y-4 group hover:bg-gray-800/50 hover:border-gray-700 transition-all duration-300 hover:transform hover:scale-105"
               >
-                <div className="text-blue-400 mb-4 flex justify-center">
+                <div className={`mx-auto w-16 h-16 ${feature.bgColor} rounded-2xl flex items-center justify-center ${feature.color} group-hover:scale-110 transition-transform`}>
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">
+                <h3 className="text-xl font-semibold text-white">
                   {feature.title}
                 </h3>
-                <p className="text-[#cccccc]">
+                <p className="text-gray-400 leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -96,92 +223,158 @@ const HomePage = () => {
       </section>
 
       {/* Modules Preview Section */}
-      <section id="modules" className="py-20 bg-[#1f1f1f]">
+      <section id="modules" className="py-24 bg-gray-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Nossos Cursos
+          <div className="text-center mb-16 space-y-4">
+            <div className="flex items-center justify-center gap-2 text-blue-400 mb-4">
+              <Globe className="w-5 h-5" />
+              <span className="text-sm font-semibold tracking-wide uppercase">
+                Cursos Disponíveis
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Explore nossos módulos de ensino
             </h2>
-            <p className="text-xl text-[#cccccc] max-w-2xl mx-auto">
-              Explore nossos módulos de ensino e comece a aprender hoje mesmo.
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+              Do básico ao avançado, nossos cursos são estruturados para levar você do zero ao profissional.
             </p>
           </div>
 
           {loading ? (
-            <div className="flex justify-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              {modules.slice(0, 6).map((module) => (
-                <ModuleCard key={module.id} module={module} />
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="bg-gray-800/50 rounded-2xl h-96 animate-pulse"></div>
               ))}
             </div>
-          )}
+          ) : (
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                {modules.slice(0, 6).map((module, index) => (
+                  <div key={module.id} className="opacity-0 animate-fade-in" style={{animationDelay: `${index * 100}ms`, animationFillMode: 'forwards'}}>
+                    <ModuleCard module={module} />
+                  </div>
+                ))}
+              </div>
 
-          <div className="text-center">
-            <Link
-              to="/modules"
-              className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-            >
-              Ver Todos os Cursos
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-          </div>
+              <div className="text-center">
+                <Link
+                  to="/modules"
+                  className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  Ver Todos os Cursos
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Pronto para começar sua jornada?
-          </h2>
-          <p className="text-xl text-white/90 mb-8">
-            Junte-se a milhares de estudantes que já estão aprendendo conosco.
-          </p>
-          <Link
-            to="/modules"
-            className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-lg"
-          >
-            <PlayCircle className="w-5 h-5" />
-            Começar Agora - É Grátis!
-          </Link>
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600"></div>
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Pronto para começar sua jornada?
+            </h2>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+              Junte-se a milhares de estudantes que já estão transformando suas carreiras com nossos cursos gratuitos.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/modules"
+              className="inline-flex items-center gap-3 bg-white text-black font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl hover:bg-gray-100"
+            >
+              <PlayCircle className="w-5 h-5" />
+              Começar Agora - É Grátis!
+            </Link>
+            <a
+              href="#"
+              className="inline-flex items-center gap-3 bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 backdrop-blur-sm border border-white/20"
+            >
+              <Users className="w-5 h-5" />
+              Entrar na Comunidade
+            </a>
+          </div>
+
+          {/* Trust indicators */}
+          <div className="pt-8 border-t border-white/20">
+            <div className="flex flex-wrap justify-center items-center gap-8 text-white/70">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
+                <span className="text-sm">100% Gratuito</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
+                <span className="text-sm">Certificado Incluso</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
+                <span className="text-sm">Suporte da Comunidade</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
+                <span className="text-sm">Acesso Vitalício</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#1a1a1a] border-t border-[#333333] py-12">
+      <footer className="bg-black border-t border-gray-800 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8">
-            <div>
-              <img 
-                src="/public/img/logo-gt.png" 
-                alt="Geração Tech" 
-                className="h-8 w-auto mb-4 [filter:drop-shadow(0_0_6px_rgba(255,255,255,0.2))]"
-              />
-              <p className="text-[#cccccc]">
-                Democratizando o acesso à educação em tecnologia.
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <img 
+                  src="/public/img/logo-gt.png" 
+                  alt="Geração Tech" 
+                  className="h-8 w-auto"
+                />
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Democratizando o acesso à educação em tecnologia através de cursos gratuitos e de qualidade.
               </p>
             </div>
+            
             <div>
-              <h4 className="text-white font-semibold mb-4">Links Rápidos</h4>
-              <ul className="space-y-2">
-                <li><Link to="/modules" className="text-[#cccccc] hover:text-white transition-colors">Cursos</Link></li>
-                <li><a href="#" className="text-[#cccccc] hover:text-white transition-colors">Comunidade</a></li>
-                <li><a href="#" className="text-[#cccccc] hover:text-white transition-colors">Suporte</a></li>
+              <h4 className="text-white font-semibold mb-4">Cursos</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link to="/modules" className="text-gray-400 hover:text-white transition-colors">Todos os Módulos</Link></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">JavaScript</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">React</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Node.js</a></li>
               </ul>
             </div>
+            
             <div>
-              <h4 className="text-white font-semibold mb-4">Contato</h4>
-              <ul className="space-y-2">
-                <li className="text-[#cccccc]">contato@geracaotech.com</li>
-                <li className="text-[#cccccc]">+55 (11) 99999-9999</li>
+              <h4 className="text-white font-semibold mb-4">Comunidade</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Discord</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">GitHub</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">LinkedIn</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">YouTube</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-white font-semibold mb-4">Suporte</h4>
+              <ul className="space-y-2 text-sm">
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Central de Ajuda</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contato</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Política de Privacidade</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Termos de Uso</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-[#333333] mt-8 pt-8 text-center">
-            <p className="text-[#666666]">
+          
+          <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col sm:flex-row justify-center items-center">
+            <p className="text-gray-500 text-sm">
               © 2025 Geração Tech. Todos os direitos reservados.
             </p>
           </div>
