@@ -196,9 +196,6 @@ const AdminLayout = ({ children }) => {
                 <div className="text-white font-medium text-sm truncate">{admin?.name}</div>
                 <div className="text-gray-400 text-xs truncate">{admin?.email}</div>
               </div>
-              <button className="p-1 text-gray-400 hover:text-white">
-                <Bell className="w-4 h-4" />
-              </button>
             </div>
             
             <button
@@ -236,11 +233,6 @@ const AdminLayout = ({ children }) => {
             </div>
 
             <div className="flex items-center gap-4">
-              {/* Notifications */}
-              <button className="relative p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-xl transition-all">
-                <Bell className="w-5 h-5" />
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
-              </button>
 
               {/* View Site */}
               <Link
