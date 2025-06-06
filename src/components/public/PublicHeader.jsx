@@ -32,9 +32,9 @@ const PublicHeader = () => {
   return (
     <>
       <header className="bg-black/95 backdrop-blur-md border-b border-gray-800/50 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
+        <div className="flex items-center h-16">
+          {/* Logo Section - Aligned with sidebar width */}
+          <div className="w-64 flex items-center justify-center border-r border-gray-800/50 px-4">
             <Link to="/" className="flex items-center space-x-3 group">
               <div className="relative">
                 <img 
@@ -44,7 +44,10 @@ const PublicHeader = () => {
                 />
               </div>
             </Link>
+          </div>
 
+          {/* Main Header Content */}
+          <div className="flex-1 flex items-center justify-between px-4 sm:px-6 lg:px-8">
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-1">
               {navigation.map((item) => {
@@ -104,10 +107,13 @@ const PublicHeader = () => {
               </button>
             </div>
           </div>
+        </div>
 
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden border-t border-gray-800/50 py-4">
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden border-t border-gray-800/50">
+            {/* Mobile menu content starts after logo width */}
+            <div className="ml-64 py-4 px-4">
               <div className="space-y-2">
                 {navigation.map((item) => {
                   const Icon = item.icon;
@@ -141,8 +147,8 @@ const PublicHeader = () => {
                 </div>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </header>
 
       {/* Search Modal */}
