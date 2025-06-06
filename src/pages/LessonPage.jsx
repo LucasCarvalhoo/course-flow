@@ -60,10 +60,10 @@ const LessonPage = ({ lessonId = 1 }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex">
+    <div className="min-h-screen bg-[#161616] text-white flex">
       <Sidebar />
       
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto max-w-4xl mx-auto w-full px-4">
         <Header 
           title={lesson.title}
           description={lesson.description}
