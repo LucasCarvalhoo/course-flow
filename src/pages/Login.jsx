@@ -24,7 +24,6 @@ const Login = () => {
 
     try {
       await signIn(email, password)
-      // Navegação direta sem animações complexas
       navigate('/modules')
     } catch (err) {
       setError(err.message || 'Erro ao fazer login')
@@ -47,7 +46,7 @@ const Login = () => {
   }
 
   return (
-    <div className="h-screen bg-[#0a0a0a] flex page-transition page-entered">
+    <div className="h-screen bg-[#0a0a0a] flex">
       {/* Left Side - Form */}
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-md">

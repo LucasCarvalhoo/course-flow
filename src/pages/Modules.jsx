@@ -1,24 +1,44 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../context/UserContext'
 import { useModules } from '../hooks/useModules'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import SidebarSearch from '../components/SidebarSearch'
 
 const Modules = () => {
   const { user, isAdmin, signOut } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
   const { modules, loading, error } = useModules()
   const [selectedModule, setSelectedModule] = useState(null)
   const [showSearch, setShowSearch] = useState(false)
-  const [isAnimating, setIsAnimating] = useState(true)
+  const [showSidebarContent, setShowSidebarContent] = useState(false)
+  const [showMainContent, setShowMainContent] = useState(false)
+
+  // Verifica se veio do login para aplicar animações
+  const fromLogin = location.state?.fromLogin
 
   useEffect(() => {
-    // Remove classe de animação após carregar
-    const timer = setTimeout(() => {
-      setIsAnimating(false)
-    }, 600)
-    return () => clearTimeout(timer)
-  }, [])
+    if (fromLogin) {
+      // Delay para mostrar conteúdo da sidebar
+      const sidebarTimer = setTimeout(() => {
+        setShowSidebarContent(true)
+      }, 400)
+      
+      // Delay para mostrar conteúdo principal
+      const mainTimer = setTimeout(() => {
+        setShowMainContent(true)
+      }, 600)
+      
+      return () => {
+        clearTimeout(sidebarTimer)
+        clearTimeout(mainTimer)
+      }
+    } else {
+      // Se não veio do login, mostra tudo de uma vez
+      setShowSidebarContent(true)
+      setShowMainContent(true)
+    }
+  }, [fromLogin])
 
   // Auto-selecionar primeiro módulo
   useState(() => {
@@ -108,10 +128,10 @@ const Modules = () => {
   }
 
   return (
-    <div className="h-screen bg-[#1a1a1a] flex page-transition page-entered">
+    <div className="h-screen bg-[#1a1a1a] flex">
       
       {/* SIDEBAR */}
-      <div className={`sidebar flex flex-col relative ${isAnimating ? 'sidebar-animate' : ''}`}>
+      <div className="sidebar flex flex-col relative">
         
         {/* Pesquisa expandida na sidebar */}
         <SidebarSearch 
@@ -120,7 +140,7 @@ const Modules = () => {
         />
         
         {/* Conteúdo normal da sidebar */}
-        <div className={showSearch ? 'hidden' : 'flex flex-col h-full'}>
+        <div className={`${showSearch ? 'hidden' : 'flex flex-col h-full'} ${showSidebarContent ? 'sidebar-entering' : 'opacity-0'}`}>
           
           {/* Logo CourseOS */}
           <div className="p-6 border-b border-[#333333]">
@@ -219,7 +239,7 @@ const Modules = () => {
       </div>
 
       {/* CONTEÚDO PRINCIPAL */}
-      <div className={`flex-1 bg-[#1a1a1a] overflow-y-auto ${isAnimating ? 'content-animate' : ''}`}>
+      <div className={`flex-1 bg-[#1a1a1a] overflow-y-auto ${showMainContent ? 'main-content-entering' : 'opacity-0'}`}>
         
         {selectedModule ? (
           <div className="h-full">
