@@ -91,7 +91,7 @@ const AdminLayout = ({ children }) => {
                 <Shield className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="font-bold text-white text-lg">Admin Panel</h1>
+                <h1 className="font-bold text-white text-lg">Administrador</h1>
                 <p className="text-xs text-gray-400">Geração Tech 2.0</p>
               </div>
             </div>
@@ -244,11 +244,7 @@ const AdminLayout = ({ children }) => {
                 Ver Site
               </Link>
               
-              {/* Admin Info */}
-              <div className="hidden md:block text-right">
-                <div className="text-white font-medium text-sm">{admin?.name}</div>
-                <div className="text-gray-400 text-xs">Administrador</div>
-              </div>
+              
             </div>
           </div>
         </header>

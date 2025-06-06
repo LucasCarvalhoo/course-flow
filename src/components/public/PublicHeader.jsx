@@ -95,7 +95,7 @@ const PublicHeader = () => {
                 to="/admin"
                 className="hidden sm:flex items-center px-3 py-2 text-xs font-medium text-gray-500 hover:text-gray-300 transition-colors rounded-lg"
               >
-                Admin
+                Painel Administrativo
               </Link>
 
               {/* Mobile Menu Button */}
