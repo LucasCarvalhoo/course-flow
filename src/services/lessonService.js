@@ -126,10 +126,11 @@ export const lessonService = {
     }
   },
 
-  // Buscar recursos de uma lição
+  // Buscar recursos de uma lição - ATUALIZADO
   async getLessonResources(lessonId) {
     try {
       if (!lessonId || !this.isValidUUID(lessonId)) {
+        console.warn('ID da lição inválido para buscar recursos:', lessonId);
         return []; // Retorna array vazio se ID inválido
       }
 
@@ -139,7 +140,12 @@ export const lessonService = {
         .eq('lesson_id', lessonId)
         .order('order_position');
       
-      if (error) throw error;
+      if (error) {
+        console.error('Erro ao buscar recursos:', error);
+        return []; // Retorna array vazio em caso de erro
+      }
+      
+      console.log(`Encontrados ${data?.length || 0} recursos para a lição ${lessonId}`);
       return data || [];
     } catch (error) {
       console.error('Erro ao buscar recursos da lição:', error);
@@ -254,6 +260,60 @@ export const lessonService = {
     } catch (error) {
       console.error('Erro ao buscar navegação da lição:', error);
       return { previous: null, next: null };
+    }
+  },
+
+  // Criar recurso para uma lição - NOVO
+  async createResource(resourceData) {
+    try {
+      const { data, error } = await supabase
+        .from('resources')
+        .insert([{
+          ...resourceData,
+          created_at: new Date().toISOString()
+        }])
+        .select()
+        .single();
+      
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error('Erro ao criar recurso:', error);
+      throw error;
+    }
+  },
+
+  // Atualizar recurso - NOVO
+  async updateResource(id, resourceData) {
+    try {
+      const { data, error } = await supabase
+        .from('resources')
+        .update(resourceData)
+        .eq('id', id)
+        .select()
+        .single();
+      
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error('Erro ao atualizar recurso:', error);
+      throw error;
+    }
+  },
+
+  // Deletar recurso - NOVO
+  async deleteResource(id) {
+    try {
+      const { error } = await supabase
+        .from('resources')
+        .delete()
+        .eq('id', id);
+      
+      if (error) throw error;
+      return { success: true };
+    } catch (error) {
+      console.error('Erro ao deletar recurso:', error);
+      throw error;
     }
   }
 };

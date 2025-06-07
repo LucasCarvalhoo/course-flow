@@ -42,12 +42,16 @@ export const useLesson = (lessonId = null) => {
         );
       }
       
+      // Separar recursos por tipo
+      const linkResources = lessonResources.filter(r => r.type === 'link' || r.type === 'external') || [];
+      const downloadResources = lessonResources.filter(r => r.type === 'download') || [];
+      
       // Formatar dados para o componente
       const formattedLesson = {
         ...lessonData,
-        // Separate resources by type
-        resources: lessonResources.filter(r => r.type === 'link') || [],
-        downloads: lessonResources.filter(r => r.type === 'download') || [],
+        // Separar recursos por tipo
+        resources: linkResources,
+        downloads: downloadResources,
         // FAQ pode ser implementado futuramente
         faq: []
       };
