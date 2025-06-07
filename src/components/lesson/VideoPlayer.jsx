@@ -136,39 +136,6 @@ const VideoPlayer = ({
           </div>
         </div>
 
-        {/* Bottom Controls */}
-        <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
-          {/* Left side - Video controls */}
-          <div className="flex space-x-3">
-            <div 
-              className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer border border-white/10"
-              title="Configurações"
-            >
-              <Settings className="text-white w-4 h-4" />
-            </div>
-            <div 
-              className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer border border-white/10"
-              title="Volume"
-            >
-              <Volume2 className="text-white w-4 h-4" />
-            </div>
-          </div>
-
-          {/* Right side - External link */}
-          {videoUrl && (
-            <a
-              href={videoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full hover:bg-white/30 transition-colors text-white text-sm border border-white/10"
-              title="Abrir no YouTube"
-            >
-              <ExternalLink className="w-4 h-4" />
-              <span className="hidden sm:inline">YouTube</span>
-            </a>
-          )}
-        </div>
-
         {/* Duration indicator (se disponível) */}
         {videoId && (
           <div className="absolute top-6 right-6">

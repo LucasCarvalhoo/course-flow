@@ -246,18 +246,7 @@ const LessonPage = () => {
                   onComplete={handleComplete}
                   text="Marcar como Concluída"
                 />
-                
-                {lesson.videoUrl && (
-                  <a
-                    href={lesson.videoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full bg-[#333333] text-white py-3 px-4 rounded-lg font-medium hover:bg-[#404040] transition-colors text-center block"
-                  >
-                    Abrir no YouTube
-                  </a>
-                )}
-                
+                                
                 <button
                   onClick={handleBack}
                   className="w-full border border-[#333333] text-white py-3 px-4 rounded-lg font-medium hover:bg-[#2a2a2a] transition-colors text-center"
