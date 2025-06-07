@@ -1,9 +1,11 @@
+// src/pages/admin/LessonForm.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../../services/supabase';
 import AdminLayout from '../../components/admin/AdminLayout';
+import ResourceManager from '../../pages/admin/ResourceManager';
 import { useModules } from '../../hooks/useModules';
-import { Save, ArrowLeft, AlertCircle, PlayCircle, ExternalLink } from 'lucide-react';
+import { Save, ArrowLeft, AlertCircle, PlayCircle, ExternalLink, Settings } from 'lucide-react';
 
 const LessonForm = () => {
   const navigate = useNavigate();
@@ -23,10 +25,13 @@ const LessonForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [showResourceManager, setShowResourceManager] = useState(false);
+  const [savedLessonId, setSavedLessonId] = useState(null);
 
   useEffect(() => {
     if (isEditing) {
       fetchLesson();
+      setSavedLessonId(id);
     }
   }, [id, isEditing]);
 
@@ -139,16 +144,23 @@ const LessonForm = () => {
           .insert([lessonData])
           .select()
           .single();
+        
+        // Set the saved lesson ID for resource management
+        if (result.data) {
+          setSavedLessonId(result.data.id);
+        }
       }
 
       if (result.error) throw result.error;
 
       setSuccess(isEditing ? 'Aula atualizada com sucesso!' : 'Aula criada com sucesso!');
       
-      // Redirect after success
-      setTimeout(() => {
-        navigate('/admin/lessons');
-      }, 1500);
+      // If creating new lesson, don't redirect immediately so user can add resources
+      if (isEditing) {
+        setTimeout(() => {
+          navigate('/admin/lessons');
+        }, 1500);
+      }
 
     } catch (err) {
       setError('Erro ao salvar aula: ' + err.message);
@@ -211,6 +223,25 @@ const LessonForm = () => {
               <div className="flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 text-green-400" />
                 <p className="text-green-400">{success}</p>
+              </div>
+            </div>
+          )}
+
+          {/* Resource Management Button - Only show if lesson exists */}
+          {savedLessonId && (
+            <div className="mb-6 bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-blue-400 font-medium mb-1">Recursos da Aula</h3>
+                  <p className="text-blue-300 text-sm">Adicione links úteis e downloads para esta aula</p>
+                </div>
+                <button
+                  onClick={() => setShowResourceManager(true)}
+                  className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  <Settings className="w-4 h-4" />
+                  Gerenciar Recursos
+                </button>
               </div>
             </div>
           )}
@@ -393,6 +424,14 @@ const LessonForm = () => {
           </div>
         </div>
       </div>
+
+      {/* Resource Manager Modal */}
+      {showResourceManager && savedLessonId && (
+        <ResourceManager
+          lessonId={savedLessonId}
+          onClose={() => setShowResourceManager(false)}
+        />
+      )}
     </AdminLayout>
   );
 };

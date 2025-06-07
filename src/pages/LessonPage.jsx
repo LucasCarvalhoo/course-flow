@@ -1,3 +1,4 @@
+// src/pages/LessonPage.jsx
 import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import PublicLayout from '../components/public/PublicLayout';
@@ -126,28 +127,42 @@ const LessonPage = () => {
           )}
         </div>
 
-        {/* Video Player */}
-        {lesson.videoId && (
-          <div className="mb-8">
-            <VideoPlayer 
-              title={lesson.videoTitle || lesson.title}
-              subtitle={lesson.videoSubtitle || lesson.moduleTitle}
-              description={lesson.videoDescription || lesson.description}
-              videoId={lesson.videoId}
-              videoUrl={lesson.videoUrl}
-              onPlay={playVideo}
-            />
-          </div>
-        )}
-
         {/* Content Grid */}
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
+            {/* Video Player */}
+            {lesson.videoId && (
+              <div>
+                <VideoPlayer 
+                  title={lesson.videoTitle || lesson.title}
+                  subtitle={lesson.videoSubtitle || lesson.moduleTitle}
+                  description={lesson.videoDescription || lesson.description}
+                  videoId={lesson.videoId}
+                  videoUrl={lesson.videoUrl}
+                  onPlay={playVideo}
+                />
+              </div>
+            )}
+
             {/* Lesson Summary */}
             {lesson.summary && (
               <div className="bg-[#2a2a2a] rounded-xl border border-[#333333] overflow-hidden">
                 <LessonSummary content={lesson.summary} />
+              </div>
+            )}
+
+            {/* Resources Section */}
+            {lesson.resources && lesson.resources.length > 0 && (
+              <div className="bg-[#2a2a2a] rounded-xl border border-[#333333] overflow-hidden">
+                <ResourcesList resources={lesson.resources} />
+              </div>
+            )}
+
+            {/* Downloads Section */}
+            {lesson.downloads && lesson.downloads.length > 0 && (
+              <div className="bg-[#2a2a2a] rounded-xl border border-[#333333] overflow-hidden">
+                <DownloadsList downloads={lesson.downloads} />
               </div>
             )}
 
@@ -184,20 +199,6 @@ const LessonPage = () => {
                     </Link>
                   )}
                 </div>
-              </div>
-            )}
-
-            {/* Resources */}
-            {lesson.resources && lesson.resources.length > 0 && (
-              <div className="bg-[#2a2a2a] rounded-xl border border-[#333333] overflow-hidden">
-                <ResourcesList resources={lesson.resources} />
-              </div>
-            )}
-
-            {/* Downloads */}
-            {lesson.downloads && lesson.downloads.length > 0 && (
-              <div className="bg-[#2a2a2a] rounded-xl border border-[#333333] overflow-hidden">
-                <DownloadsList downloads={lesson.downloads} />
               </div>
             )}
 
@@ -250,7 +251,6 @@ const LessonPage = () => {
                 <CompleteButton 
                   onComplete={handleComplete}
                   text="Marcar como Concluída"
-                  
                 />
                 
                 {lesson.videoUrl && (
