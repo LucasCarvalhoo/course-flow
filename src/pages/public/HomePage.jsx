@@ -66,10 +66,10 @@ const HomePage = () => {
       id: 1,
       name: "Arthur Diógenes",
       role: "Full Stack Developer",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face",
+      avatar: "https://imgur.com/fdxETAB.png",
       description: "Especialista em React e UI/UX, responsável pela interface intuitiva da plataforma.",
-      github: "https://github.com/anasilva",
-      linkedin: "https://linkedin.com/in/anasilva",
+      github: "https://github.com/ArthurDiogenes",
+      linkedin: "https://www.linkedin.com/in/arthur-diogenes/",
       skills: ["React", "TypeScript", "Tailwind CSS"]
     },
     {
@@ -259,7 +259,58 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="developers" className="py-24 bg-gray-900/50">
+      
+
+      {/* Modules Preview Section */}
+      <section id="modules" className="py-24 bg-gray-900/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16 space-y-4">
+            <div className="flex items-center justify-center gap-2 text-blue-400 mb-4">
+              <Globe className="w-5 h-5" />
+              <span className="text-sm font-semibold tracking-wide uppercase">
+                Cursos Disponíveis
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Explore nossos módulos de ensino
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+              Do básico ao avançado, nossos cursos são estruturados para levar você do zero ao profissional.
+            </p>
+          </div>
+
+          {loading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="bg-gray-800/50 rounded-2xl h-96 animate-pulse"></div>
+              ))}
+            </div>
+          ) : (
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                {modules.slice(0, 6).map((module, index) => (
+                  <div key={module.id} className="opacity-0 animate-fade-in" style={{animationDelay: `${index * 100}ms`, animationFillMode: 'forwards'}}>
+                    <ModuleCard module={module} />
+                  </div>
+                ))}
+              </div>
+
+              <div className="text-center">
+                <Link
+                  to="/modules"
+                  className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
+                >
+                  Ver Todos os Cursos
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* Developers Section */}
+      <section id="developers" className="py-24 bg-gray-900/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 space-y-4">
             <div className="flex items-center justify-center gap-2 text-purple-400 mb-4">
@@ -343,18 +394,18 @@ const HomePage = () => {
             <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-2xl p-8 border border-purple-500/20">
               <div className="flex items-center justify-center gap-2 text-purple-400 mb-4">
                 <Heart className="w-5 h-5" />
-                <span className="text-sm font-semibold">Feito com amor</span>
+                <span className="text-sm font-semibold"></span>
               </div>
               <h3 className="text-2xl font-bold text-white mb-4">
                 Tecnologia a serviço da educação
               </h3>
               <p className="text-gray-300 max-w-2xl mx-auto mb-6">
-                Nossa equipe trabalha incansavelmente para democratizar o acesso à educação em tecnologia,
-                criando uma plataforma robusta, intuitiva e completamente gratuita.
+                Nossa equipe trabalha para democratizar o acesso à educação através da tecnologia,
+                criando uma plataforma robusta, intuitiva e gratuita.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="https://github.com/geracao-tech"
+                  href="https://github.com/LucasCarvalhoo/course-flow"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 hover:scale-105"
@@ -362,64 +413,9 @@ const HomePage = () => {
                   <Github className="w-4 h-4" />
                   Ver no GitHub
                 </a>
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-3 bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 font-semibold px-6 py-3 rounded-xl transition-all duration-200 backdrop-blur-sm border border-purple-600/30"
-                >
-                  <Users className="w-4 h-4" />
-                  Junte-se ao Time
-                </a>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Modules Preview Section */}
-      <section id="modules" className="py-24 bg-gray-900/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 space-y-4">
-            <div className="flex items-center justify-center gap-2 text-blue-400 mb-4">
-              <Globe className="w-5 h-5" />
-              <span className="text-sm font-semibold tracking-wide uppercase">
-                Cursos Disponíveis
-              </span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              Explore nossos módulos de ensino
-            </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              Do básico ao avançado, nossos cursos são estruturados para levar você do zero ao profissional.
-            </p>
-          </div>
-
-          {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="bg-gray-800/50 rounded-2xl h-96 animate-pulse"></div>
-              ))}
-            </div>
-          ) : (
-            <>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                {modules.slice(0, 6).map((module, index) => (
-                  <div key={module.id} className="opacity-0 animate-fade-in" style={{animationDelay: `${index * 100}ms`, animationFillMode: 'forwards'}}>
-                    <ModuleCard module={module} />
-                  </div>
-                ))}
-              </div>
-
-              <div className="text-center">
-                <Link
-                  to="/modules"
-                  className="inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
-                >
-                  Ver Todos os Cursos
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-              </div>
-            </>
-          )}
         </div>
       </section>
 
