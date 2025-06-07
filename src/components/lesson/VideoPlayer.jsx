@@ -126,7 +126,7 @@ const VideoPlayer = ({
             <div className="text-white px-6">
               <h2 className="text-2xl md:text-3xl font-bold mb-3">{title}</h2>
               <p className="text-sm opacity-90 mb-2">{subtitle}</p>
-              <p className="text-xs opacity-75 mb-6 max-w-md mx-auto leading-relaxed">{description}</p>
+              
               {!videoId && (
                 <div className="bg-red-500/20 border border-red-500/30 rounded-lg px-4 py-2 inline-block">
                   <p className="text-red-300 text-sm">Vídeo não disponível</p>

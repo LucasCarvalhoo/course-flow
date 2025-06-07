@@ -119,12 +119,6 @@ const LessonPage = () => {
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
             {lesson.title}
           </h1>
-          
-          {lesson.description && (
-            <p className="text-xl text-[#cccccc] max-w-3xl leading-relaxed">
-              {lesson.description}
-            </p>
-          )}
         </div>
 
         {/* Content Grid */}
