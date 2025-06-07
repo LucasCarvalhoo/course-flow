@@ -13,7 +13,11 @@ import {
   Zap, 
   Globe,
   CheckCircle,
-  TrendingUp
+  TrendingUp,
+  Github,
+  Linkedin,
+  Code,
+  Heart
 } from 'lucide-react';
 
 const HomePage = () => {
@@ -55,6 +59,39 @@ const HomePage = () => {
     { label: "Horas de Conteúdo", value: "100+", icon: PlayCircle },
     { label: "Módulos", value: "20+", icon: BookOpen },
     { label: "Taxa de Conclusão", value: "85%", icon: TrendingUp }
+  ];
+
+  const developers = [
+    {
+      id: 1,
+      name: "Arthur Diógenes",
+      role: "Full Stack Developer",
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face",
+      description: "Especialista em React e UI/UX, responsável pela interface intuitiva da plataforma.",
+      github: "https://github.com/anasilva",
+      linkedin: "https://linkedin.com/in/anasilva",
+      skills: ["React", "TypeScript", "Tailwind CSS"]
+    },
+    {
+      id: 2,
+      name: "Filippe Monteiro",
+      role: "Full Stack Developer",
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      description: "Expert em Node.js e bancos de dados, construindo a arquitetura robusta do sistema.",
+      github: "https://github.com/carlossantos",
+      linkedin: "https://linkedin.com/in/carlossantos",
+      skills: ["Node.js", "PostgreSQL", "Docker"]
+    },
+    {
+      id: 3,
+      name: "Lucas Carvalho",
+      role: "Full Stack Developer",
+      avatar: "https://i.imgur.com/vNiuV7M.png",
+      description: "Desenvolvedor fullstack com foco em código limpo e eficiência.",
+      github: "https://github.com/LucasCarvalhoo",
+      linkedin: "https://linkedin.com/in/lucascarvalho-dev",
+      skills: ["Java", "PostgreSQL", "Spring", "React"]
+    }
   ];
 
   return (
@@ -218,6 +255,122 @@ const HomePage = () => {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="developers" className="py-24 bg-gray-900/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16 space-y-4">
+            <div className="flex items-center justify-center gap-2 text-purple-400 mb-4">
+              <Code className="w-5 h-5" />
+              <span className="text-sm font-semibold tracking-wide uppercase">
+                Nossa Equipe
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Conheça os Desenvolvedores
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+              A equipe talentosa por trás da plataforma Geração Tech, dedicada a criar a melhor experiência de aprendizado.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {developers.map((developer, index) => (
+              <div
+                key={developer.id}
+                className="bg-gray-900/70 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 text-center space-y-6 group hover:bg-gray-800/70 hover:border-gray-700 transition-all duration-300 hover:transform hover:scale-105 opacity-0 animate-fade-in"
+                style={{animationDelay: `${index * 200}ms`, animationFillMode: 'forwards'}}
+              >
+                <div className="relative mx-auto w-24 h-24">
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full blur opacity-75 group-hover:opacity-100 transition-opacity"></div>
+                  <img
+                    src={developer.avatar}
+                    alt={developer.name}
+                    className="relative w-24 h-24 rounded-full object-cover border-4 border-white/10 group-hover:border-white/20 transition-colors"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                    {developer.name}
+                  </h3>
+                  <p className="text-purple-400 font-medium text-sm">
+                    {developer.role}
+                  </p>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    {developer.description}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap justify-center gap-2">
+                  {developer.skills.map((skill, skillIndex) => (
+                    <span
+                      key={skillIndex}
+                      className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs font-medium border border-purple-500/30"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex justify-center gap-4 pt-4">
+                  <a
+                    href={developer.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-gray-800/50 hover:bg-gray-700 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200 hover:scale-110 group/icon"
+                    title="GitHub"
+                  >
+                    <Github className="w-5 h-5 group-hover/icon:scale-110 transition-transform" />
+                  </a>
+                  <a
+                    href={developer.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-blue-600/20 hover:bg-blue-600/30 rounded-full flex items-center justify-center text-blue-400 hover:text-blue-300 transition-all duration-200 hover:scale-110 group/icon border border-blue-600/30"
+                    title="LinkedIn"
+                  >
+                    <Linkedin className="w-5 h-5 group-hover/icon:scale-110 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-16">
+            <div className="bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-2xl p-8 border border-purple-500/20">
+              <div className="flex items-center justify-center gap-2 text-purple-400 mb-4">
+                <Heart className="w-5 h-5" />
+                <span className="text-sm font-semibold">Feito com amor</span>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4">
+                Tecnologia a serviço da educação
+              </h3>
+              <p className="text-gray-300 max-w-2xl mx-auto mb-6">
+                Nossa equipe trabalha incansavelmente para democratizar o acesso à educação em tecnologia,
+                criando uma plataforma robusta, intuitiva e completamente gratuita.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://github.com/geracao-tech"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 hover:scale-105"
+                >
+                  <Github className="w-4 h-4" />
+                  Ver no GitHub
+                </a>
+                <a
+                  href="#"
+                  className="inline-flex items-center gap-3 bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 font-semibold px-6 py-3 rounded-xl transition-all duration-200 backdrop-blur-sm border border-purple-600/30"
+                >
+                  <Users className="w-4 h-4" />
+                  Junte-se ao Time
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
