@@ -199,7 +199,7 @@ const AdminModules = () => {
               {filteredModules.map((module, index) => (
                 <div
                   key={module.id}
-                  className="bg-[#1a1a1a] rounded-lg p-6 border border-[#333333] hover:border-[#404040] hover:bg-[#242424] transition-all duration-200"
+                  className="bg-[#1a1a1a] rounded-xl p-6 border border-[#333333] hover:border-[#404040] hover:bg-[#242424] transition-all duration-200"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
