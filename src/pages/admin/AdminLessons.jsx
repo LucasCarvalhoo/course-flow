@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { supabase } from '../../services/supabase';
-import { 
-  Plus, 
-  Edit, 
-  Trash2, 
-  Eye, 
+import {
+  Plus,
+  Edit,
+  Trash2,
+  Eye,
   Search,
   PlayCircle,
   Clock,
@@ -31,7 +31,7 @@ const AdminLessons = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      
+
       // Fetch lessons with module info
       const { data: lessonsData, error: lessonsError } = await supabase
         .from('lessons')
@@ -62,11 +62,11 @@ const AdminLessons = () => {
 
   const filteredLessons = lessons.filter(lesson => {
     const matchesSearch = lesson.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         lesson.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         lesson.module?.title?.toLowerCase().includes(searchTerm.toLowerCase());
-    
+      lesson.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      lesson.module?.title?.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesModule = !filterModule || lesson.module_id === filterModule;
-    
+
     return matchesSearch && matchesModule;
   });
 
@@ -193,7 +193,7 @@ const AdminLessons = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="bg-[#2a2a2a] rounded-xl p-6 border border-[#333333]">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center">
@@ -260,9 +260,12 @@ const AdminLessons = () => {
               )}
             </div>
           ) : (
-            <div className="divide-y divide-[#333333]">
+            <div className="p-4 space-y-4">
               {filteredLessons.map((lesson, index) => (
-                <div key={lesson.id} className="p-6 hover:bg-[#333333] transition-colors">
+                <div
+                  key={lesson.id}
+                  className="bg-[#1a1a1a] rounded-lg p-6 border border-[#333333] hover:border-[#404040] hover:bg-[#242424] transition-all duration-200"
+                >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
@@ -276,11 +279,11 @@ const AdminLessons = () => {
                           {lesson.title}
                         </h3>
                       </div>
-                      
+
                       <p className="text-[#cccccc] mb-3 line-clamp-2">
                         {lesson.description}
                       </p>
-                      
+
                       <div className="flex items-center gap-4 text-sm text-[#888888]">
                         {lesson.duration_minutes && (
                           <span className="flex items-center gap-1">
@@ -299,43 +302,43 @@ const AdminLessons = () => {
                         </span>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center gap-2 ml-4">
                       {/* Order Controls */}
                       <div className="flex flex-col gap-1">
                         <input
-                          type="number"
+                          type="text"
                           value={lesson.order_position || ''}
                           onChange={(e) => handleUpdateOrder(lesson.id, parseInt(e.target.value) || null)}
-                          className="w-16 px-2 py-1 bg-[#1a1a1a] border border-[#333333] rounded text-white text-xs text-center"
+                          className="w-16 px-2 py-1 bg-[#2a2a2a] border border-[#404040] rounded text-white text-xs text-center focus:outline-none focus:border-blue-500 transition-colors"
                           placeholder="Ord"
                           min="1"
                         />
                       </div>
-                      
+
                       {lesson.youtube_url && (
                         <a
                           href={lesson.youtube_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="p-2 text-[#666666] hover:text-red-400 transition-colors"
+                          className="p-2 text-[#666666] hover:text-red-400 transition-colors rounded hover:bg-[#333333]"
                           title="Assistir no YouTube"
                         >
                           <PlayCircle className="w-4 h-4" />
                         </a>
                       )}
-                      
+
                       <Link
                         to={`/admin/lessons/${lesson.id}/edit`}
-                        className="p-2 text-[#666666] hover:text-green-400 transition-colors"
+                        className="p-2 text-[#666666] hover:text-green-400 transition-colors rounded hover:bg-[#333333]"
                         title="Editar aula"
                       >
                         <Edit className="w-4 h-4" />
                       </Link>
-                      
+
                       <button
                         onClick={() => setDeleteConfirm(lesson)}
-                        className="p-2 text-[#666666] hover:text-red-400 transition-colors"
+                        className="p-2 text-[#666666] hover:text-red-400 transition-colors rounded hover:bg-[#333333]"
                         title="Deletar aula"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -353,7 +356,7 @@ const AdminLessons = () => {
           <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen px-4">
               <div className="fixed inset-0 bg-black/80" onClick={() => setDeleteConfirm(null)}></div>
-              
+
               <div className="relative bg-[#2a2a2a] rounded-xl max-w-md w-full p-6 border border-[#333333]">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 bg-red-600/20 rounded-lg flex items-center justify-center">
@@ -364,11 +367,11 @@ const AdminLessons = () => {
                     <p className="text-[#666666] text-sm">Esta ação não pode ser desfeita</p>
                   </div>
                 </div>
-                
+
                 <p className="text-[#cccccc] mb-6">
                   Tem certeza que deseja deletar a aula <strong>"{deleteConfirm.title}"</strong>?
                 </p>
-                
+
                 <div className="flex gap-3">
                   <button
                     onClick={() => setDeleteConfirm(null)}

@@ -61,6 +61,12 @@ const AdminModules = () => {
     }
   };
 
+  const stats = {
+    totalModules: modules.length,
+    totalLessons: modules.reduce((acc, module) => acc + (module.lessons?.length || 0), 0),
+    orderedModules: modules.filter(m => m.order_position).length
+  };
+
   if (loading) {
     return (
       <AdminLayout>
@@ -122,7 +128,7 @@ const AdminModules = () => {
                 <BookOpen className="w-6 h-6 text-blue-400" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white">{modules.length}</h3>
+                <h3 className="text-2xl font-bold text-white">{stats.totalModules}</h3>
                 <p className="text-[#666666]">Total de Módulos</p>
               </div>
             </div>
@@ -134,9 +140,7 @@ const AdminModules = () => {
                 <PlayCircle className="w-6 h-6 text-green-400" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white">
-                  {modules.reduce((acc, module) => acc + (module.lessons?.length || 0), 0)}
-                </h3>
+                <h3 className="text-2xl font-bold text-white">{stats.totalLessons}</h3>
                 <p className="text-[#666666]">Total de Aulas</p>
               </div>
             </div>
@@ -148,9 +152,7 @@ const AdminModules = () => {
                 <ArrowUpDown className="w-6 h-6 text-purple-400" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white">
-                  {modules.filter(m => m.order_position).length}
-                </h3>
+                <h3 className="text-2xl font-bold text-white">{stats.orderedModules}</h3>
                 <p className="text-[#666666]">Módulos Ordenados</p>
               </div>
             </div>
@@ -193,9 +195,12 @@ const AdminModules = () => {
               )}
             </div>
           ) : (
-            <div className="divide-y divide-[#333333]">
+            <div className="p-4 space-y-4">
               {filteredModules.map((module, index) => (
-                <div key={module.id} className="p-6 hover:bg-[#333333] transition-colors">
+                <div
+                  key={module.id}
+                  className="bg-[#1a1a1a] rounded-lg p-6 border border-[#333333] hover:border-[#404040] hover:bg-[#242424] transition-all duration-200"
+                >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
@@ -226,10 +231,10 @@ const AdminModules = () => {
                       {/* Order Controls */}
                       <div className="flex flex-col gap-1">
                         <input
-                          type="number"
+                          type="text"
                           value={module.order_position || ''}
                           onChange={(e) => handleUpdateOrder(module.id, parseInt(e.target.value) || null)}
-                          className="w-16 px-2 py-1 bg-[#1a1a1a] border border-[#333333] rounded text-white text-xs text-center"
+                          className="w-16 px-2 py-1 bg-[#2a2a2a] border border-[#404040] rounded text-white text-xs text-center focus:outline-none focus:border-blue-500 transition-colors"
                           placeholder="Ord"
                           min="1"
                         />
@@ -238,7 +243,7 @@ const AdminModules = () => {
                       <Link
                         to={`/module/${module.id}`}
                         target="_blank"
-                        className="p-2 text-[#666666] hover:text-blue-400 transition-colors"
+                        className="p-2 text-[#666666] hover:text-blue-400 transition-colors rounded hover:bg-[#333333]"
                         title="Visualizar no site"
                       >
                         <Eye className="w-4 h-4" />
@@ -246,7 +251,7 @@ const AdminModules = () => {
                       
                       <Link
                         to={`/admin/modules/${module.id}/edit`}
-                        className="p-2 text-[#666666] hover:text-green-400 transition-colors"
+                        className="p-2 text-[#666666] hover:text-green-400 transition-colors rounded hover:bg-[#333333]"
                         title="Editar módulo"
                       >
                         <Edit className="w-4 h-4" />
@@ -254,7 +259,7 @@ const AdminModules = () => {
                       
                       <button
                         onClick={() => setDeleteConfirm(module)}
-                        className="p-2 text-[#666666] hover:text-red-400 transition-colors"
+                        className="p-2 text-[#666666] hover:text-red-400 transition-colors rounded hover:bg-[#333333]"
                         title="Deletar módulo"
                       >
                         <Trash2 className="w-4 h-4" />
